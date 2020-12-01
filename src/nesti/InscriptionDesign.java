@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class Inscription {
+public class InscriptionDesign {
 
 	private JFrame frame;
 	private JTextField txtLastName;
@@ -29,7 +29,7 @@ public class Inscription {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Inscription window = new Inscription();
+					InscriptionDesign window = new InscriptionDesign();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class Inscription {
 	/**
 	 * Create the application.
 	 */
-	public Inscription() {
+	public InscriptionDesign() {
 		initialize();
 	}
 

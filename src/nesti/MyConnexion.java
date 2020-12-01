@@ -28,7 +28,7 @@ public class MyConnexion {
 	 */
 	public static void openConnection() {
 		/* Parametres de connexion */
-		String url = "jdbc:mysql://127.0.0.1/nesti ?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+		String url = "jdbc:mysql://127.0.0.1/nesti";
 		// nesti = nom de ma bdd le reste est pour le pb de fuseau horaire
 		String utilisateur = "root";
 		String motDePasse = "";
