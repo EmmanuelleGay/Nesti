@@ -56,7 +56,7 @@ public class MyConnexion {
 		return flag;
 
 	};
-
+	
 	public static void closeConnection() {
 		if (accessDataBase != null) {
 			try {
