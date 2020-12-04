@@ -7,10 +7,14 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -24,6 +28,8 @@ public class InscriptionDesign {
 	private JTextField txtTown;
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -42,16 +48,14 @@ public class InscriptionDesign {
 	}
 
 	/*
-	public Object[] insertRow() {
-		Member member = new Member();
-		Object[] row = member.toRow();
-		return row;
-	}
-*/
+	 * public Object[] insertRow() { Member member = new Member(); Object[] row =
+	 * member.toRow(); return row; }
+	 */
 
 	/**
 	 * Create the application.
 	 */
+
 	public InscriptionDesign() {
 		initialize();
 	}
@@ -137,12 +141,48 @@ public class InscriptionDesign {
 		JButton btnSubmit = new JButton("Valider");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//insertRow();
-				Member member = new Member(txtLastName.getText(), txtFirstName.getText(), txtAlias.getText(),
-						txtEmail.getText(), txtTown.getText(), String.valueOf(txtpassword1.getPassword()));
-				System.out.println(member.toString());
-			
-				QueryInscription.createMember(member);
+
+				// check if user insert same password
+				if (String.valueOf(txtpassword1.getPassword()).equals(String.valueOf(txtpassword2.getPassword()))) {
+
+					// check if email is validate
+					EmailValidator emailValidator = new EmailValidator();
+					if (emailValidator.validate(txtEmail.getText().trim())) {
+
+						// check if password is validate
+						PasswordValidator passwordValidator = new PasswordValidator();
+						if (passwordValidator.validate(String.valueOf(txtpassword1.getPassword()))) {
+								
+							//everything is ok, create member with textfield
+							Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
+									txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
+									String.valueOf(txtpassword1.getPassword()));
+							
+
+						//	HashPassword hashPassword = new HashPassword();
+							try {
+								HashPassword.generateHashPassword(member);
+							} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							
+							//insert member in db
+							QueryInscription.createMember(member);
+						}
+						else {
+							JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+				}
+
 			}
 		});
 		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -158,11 +198,11 @@ public class InscriptionDesign {
 		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnConnexion.setBounds(595, 22, 126, 41);
 		container.add(btnConnexion);
-		
+
 		txtpassword1 = new JPasswordField();
 		txtpassword1.setBounds(413, 437, 234, 32);
 		container.add(txtpassword1);
-		
+
 		txtpassword2 = new JPasswordField();
 		txtpassword2.setBounds(413, 501, 234, 32);
 		container.add(txtpassword2);
