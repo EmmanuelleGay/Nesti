@@ -22,13 +22,13 @@ public class MyConnexion {
 	}
 
 	/**
-	 * Connexion à ma base de donnée NESTI
+	 * open connexion to database Nesti
 	 * 
 	 * @throws SQLException
 	 */
 	public static void openConnection() {
 		/* Parametres de connexion */
-		String url = "jdbc:mysql://127.0.0.1/nesti";
+		String url = "jdbc:mysql://127.0.0.1/nesti ?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 		// nesti = nom de ma bdd le reste est pour le pb de fuseau horaire
 		String utilisateur = "root";
 		String motDePasse = "";
@@ -41,6 +41,12 @@ public class MyConnexion {
 		}
 	}
 
+	
+/**
+ * check if connection is ok
+ * 
+ * @return flag
+ */
 	public static boolean testConnection() {
 		boolean flag = false;
 		try {
@@ -57,6 +63,10 @@ public class MyConnexion {
 
 	};
 	
+	
+	/**
+	 * close connection and alert if needed
+	 */
 	public static void closeConnection() {
 		if (accessDataBase != null) {
 			try {

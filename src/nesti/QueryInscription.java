@@ -2,6 +2,9 @@ package nesti;
 
 import java.sql.Statement;
 import java.util.Arrays;
+
+import javax.swing.JTextField;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,18 +19,19 @@ public class QueryInscription extends MyConnexion {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		openConnection();
-		readAll();
-		createMember();
+		
+	//	readAll();
+	//	createMember(row);
+		
 	}
 
-	public static void readAll() {
+/*	public static void readAll() {
 		try {
 			Statement declaration = accessDataBase.createStatement();
 			String query = "SELECT * FROM `member`";
 			ResultSet resultat = declaration.executeQuery(query);
 
-			/* Récupération des données */
+			// Récupération des données 
 			while (resultat.next()) {
 				Member member = new Member();
 				member.setIdMember(resultat.getInt("id_member"));
@@ -45,22 +49,23 @@ public class QueryInscription extends MyConnexion {
 			System.err.println("Erreur d'affichage du membre : " + e.getMessage());
 		}
 
-	}
+	}*/
 
 	/**
 	 * insert member into database
 	 * @param name
 	 * @return flag
 	 */
-	public static boolean createMember() {
+	public static boolean createMember(Member member) {
 		try {
+			openConnection();
+	//		String query = "INSERT INTO `member`(last_name) VALUES (?)";
+			System.out.println(member.toString());
 			String query = "INSERT INTO `member`(last_name,first_name,alias,email,town,password) VALUES (?,?,?,?,?,?)";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
-			Member member = new Member();
-			// le 1 correspond au rang du point d'interrogation (on pourrait en mettre
-			// plusieurs)
+	//		Member member = new Member();
 			
-			declaration.setString(1, member.getLastName());
+			declaration.setString(1, member.getLastName());		
 			declaration.setString(2, member.getFirstName());
 			declaration.setString(3, member.getAlias());
 			declaration.setString(4, member.getEmail());

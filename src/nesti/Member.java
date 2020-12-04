@@ -1,55 +1,73 @@
 package nesti;
 
+import javax.swing.JTextField;
+
 public class Member {
-	int id_member;
-	String last_name;
-	String first_name;
+	int idMember;
+	String lastName;
+	String firstName;
 	String alias;
 	String email;
 	String town;
 	String password;
 	
 	
+	public Member(String lastName, String firstName, String alias, String email, String town, String password) {
+		this.lastName = lastName;
+		this.firstName = firstName; 
+		this.alias = alias;
+		this.email = email;
+		this.town = town;
+		this.password = password;
+	}
+	
+	/*
+	public Object[] toRow() {
+		Object [] tabMember = {this.lastName, this.firstName, this.alias, this.email, this.town, this.password};
+		return tabMember;
+	}
+	*/
+	
 	public String toString() {
-		return "id : " + this.id_member + " nom : " + this.last_name + " prenom : " + this.first_name + " alias: " + alias + " email : " + this.email + " ville : " + this.town + "password : " + this.password ;
+		return "id : " + this.idMember + " nom : " + this.lastName + " prenom : " + this.firstName + " alias: " + alias + " email : " + this.email + " ville : " + this.town + "password : " + this.password ;
 	}
 
 	
 	/**
 	 * @return the id_member
 	 */
-	public int getId_member() {
-		return id_member;
+	public int getIdMember() {
+		return idMember;
 	}
 	/**
 	 * @param id_member the id_member to set
 	 */
-	public void setId_member(int id_member) {
-		this.id_member = id_member;
+	public void setIdMember(int id_member) {
+		this.idMember = id_member;
 	}
 	/**
 	 * @return the last_name
 	 */
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 	/**
 	 * @param last_name the last_name to set
 	 */
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String last_name) {
+		this.lastName = last_name;
 	}
 	/**
 	 * @return the first_name
 	 */
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 	/**
 	 * @param first_name the first_name to set
 	 */
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String first_name) {
+		this.firstName = first_name;
 	}
 	/**
 	 * @return the alias
