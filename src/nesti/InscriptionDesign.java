@@ -10,13 +10,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+
+import javax.swing.JTextArea;
+import java.awt.SystemColor;
+import java.awt.Color;
 
 public class InscriptionDesign {
 
@@ -64,81 +70,84 @@ public class InscriptionDesign {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+	
 		frame = new JFrame();
-		frame.setBounds(100, 100, 765, 658);
+		frame.setBounds(100, 100, 1200, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel container = new JPanel();
-		frame.getContentPane().add(container, BorderLayout.CENTER);
-		container.setLayout(null);
+		JPanel containerForm = new JPanel();
+		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
+		containerForm.setLayout(null);
 
 		txtLastName = new JTextField();
-		txtLastName.setBounds(413, 124, 234, 32);
-		container.add(txtLastName);
+		txtLastName.setBounds(577, 222, 234, 32);
+		containerForm.add(txtLastName);
 		txtLastName.setColumns(10);
 
 		JLabel lblInscription = new JLabel("INSCRIPTION");
+		lblInscription.setBounds(433, 96, 262, 41);
 		lblInscription.setFont(new Font("Verdana", Font.PLAIN, 22));
 		lblInscription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInscription.setBounds(240, 22, 262, 41);
-		container.add(lblInscription);
+		containerForm.add(lblInscription);
 
 		JLabel lblName = new JLabel("Nom");
+		lblName.setBounds(289, 222, 72, 23);
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblName.setBounds(125, 129, 72, 23);
-		container.add(lblName);
+		containerForm.add(lblName);
 
 		JLabel lblFirstName = new JLabel("Pr\u00E9nom");
+		lblFirstName.setBounds(289, 282, 72, 23);
 		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblFirstName.setBounds(125, 189, 72, 23);
-		container.add(lblFirstName);
+		containerForm.add(lblFirstName);
 
 		txtFirstName = new JTextField();
+		txtFirstName.setBounds(577, 282, 234, 32);
 		txtFirstName.setColumns(10);
-		txtFirstName.setBounds(413, 184, 234, 32);
-		container.add(txtFirstName);
+		containerForm.add(txtFirstName);
 
 		JLabel lblAlias = new JLabel("Pseudo*");
+		lblAlias.setBounds(289, 342, 72, 23);
 		lblAlias.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblAlias.setBounds(125, 249, 72, 23);
-		container.add(lblAlias);
+		containerForm.add(lblAlias);
 
 		txtAlias = new JTextField();
+		txtAlias.setBounds(577, 342, 234, 32);
 		txtAlias.setColumns(10);
-		txtAlias.setBounds(413, 244, 234, 32);
-		container.add(txtAlias);
+		containerForm.add(txtAlias);
 
 		txtEmail = new JTextField();
+		txtEmail.setBounds(577, 405, 234, 32);
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(413, 307, 234, 32);
-		container.add(txtEmail);
+		containerForm.add(txtEmail);
 
 		JLabel lblEmail = new JLabel("Email*");
+		lblEmail.setBounds(289, 405, 72, 23);
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblEmail.setBounds(125, 312, 72, 23);
-		container.add(lblEmail);
+		containerForm.add(lblEmail);
 
 		JLabel lblTown = new JLabel("Ville");
+		lblTown.setBounds(289, 470, 72, 23);
 		lblTown.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTown.setBounds(125, 377, 72, 23);
-		container.add(lblTown);
+		containerForm.add(lblTown);
 
 		txtTown = new JTextField();
+		txtTown.setBounds(577, 470, 234, 32);
 		txtTown.setColumns(10);
-		txtTown.setBounds(413, 372, 234, 32);
-		container.add(txtTown);
+		containerForm.add(txtTown);
 
 		JLabel lblPassword1 = new JLabel("Mot de passe*");
+		lblPassword1.setBounds(289, 526, 133, 23);
 		lblPassword1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPassword1.setBounds(125, 433, 133, 23);
-		container.add(lblPassword1);
+		containerForm.add(lblPassword1);
 
 		JLabel lblPassword2 = new JLabel("Confirmation mot de passe*");
+		lblPassword2.setBounds(295, 633, 226, 23);
 		lblPassword2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPassword2.setBounds(125, 497, 226, 23);
-		container.add(lblPassword2);
+		containerForm.add(lblPassword2);
 
 		JButton btnSubmit = new JButton("Valider");
+		btnSubmit.setBounds(703, 729, 108, 35);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -158,8 +167,7 @@ public class InscriptionDesign {
 									txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
 									String.valueOf(txtpassword1.getPassword()));
 							
-
-						//	HashPassword hashPassword = new HashPassword();
+							//hash and salt password
 							try {
 								HashPassword.generateHashPassword(member);
 							} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
@@ -186,25 +194,67 @@ public class InscriptionDesign {
 			}
 		});
 		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSubmit.setBounds(570, 573, 108, 35);
-		container.add(btnSubmit);
+		containerForm.add(btnSubmit);
 
 		JButton btnCancel = new JButton("Annuler");
+		btnCancel.setBounds(535, 729, 108, 35);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCancel.setBounds(430, 573, 108, 35);
-		container.add(btnCancel);
+		containerForm.add(btnCancel);
 
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.setBounds(964, 99, 126, 41);
 		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnConnexion.setBounds(595, 22, 126, 41);
-		container.add(btnConnexion);
+		containerForm.add(btnConnexion);
 
 		txtpassword1 = new JPasswordField();
-		txtpassword1.setBounds(413, 437, 234, 32);
-		container.add(txtpassword1);
+		txtpassword1.setBounds(577, 526, 234, 32);
+		containerForm.add(txtpassword1);
 
 		txtpassword2 = new JPasswordField();
-		txtpassword2.setBounds(413, 501, 234, 32);
-		container.add(txtpassword2);
+		txtpassword2.setBounds(577, 631, 234, 32);
+		containerForm.add(txtpassword2);
+		
+		JPanel ContaineurLogo = new JPanel();
+		ContaineurLogo.setBackground(SystemColor.window);
+		ContaineurLogo.setBounds(10, 11, 208, 213);
+		containerForm.add(ContaineurLogo);
+		ContaineurLogo.setLayout(null);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBackground(SystemColor.window);
+		Image logo = new ImageIcon(this.getClass().getResource("/logoNesti.png")).getImage();
+		lblLogo.setIcon(new ImageIcon(logo));	
+		lblLogo.setBounds(0, 0, 200, 195);
+		ContaineurLogo.add(lblLogo);
+		
+		JTextArea txtrLeMotDe = new JTextArea();
+		txtrLeMotDe.setBounds(285, 573, 526, 49);
+		txtrLeMotDe.setForeground(Color.BLUE);
+		txtrLeMotDe.setBackground(SystemColor.text);
+		txtrLeMotDe.setFont(new Font("Nirmala UI", Font.ITALIC, 13));
+		txtrLeMotDe.setEnabled(false);
+		txtrLeMotDe.setEditable(false);
+		txtrLeMotDe.setWrapStyleWord(true);
+		txtrLeMotDe.setLineWrap(true);
+		txtrLeMotDe.setText("Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, un majsucule, une minuscule et un caract\u00E8re sp\u00E9cial.");
+		containerForm.add(txtrLeMotDe);
+		
+		JPanel ContainerBackground = new JPanel();
+		ContainerBackground.setBounds(0, 0, 1200, 1100);
+		containerForm.add(ContainerBackground);
+		ContainerBackground.setLayout(null);
+		
+		JLabel lblBackground = new JLabel("");
+		Image background = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
+		lblBackground.setIcon(new ImageIcon(background));
+		
+		lblBackground.setBounds(0, 0, 1200, 1100);
+		ContainerBackground.add(lblBackground);
+		
+
 	}
 }
