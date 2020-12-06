@@ -24,9 +24,9 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;
 
-public class InscriptionDesign {
+public class DesignInscription {
 
-	private JFrame frame;
+	protected JFrame frame;
 	private JTextField txtLastName;
 	private JTextField txtFirstName;
 	private JTextField txtAlias;
@@ -34,44 +34,24 @@ public class InscriptionDesign {
 	private JTextField txtTown;
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
-	
-	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InscriptionDesign window = new InscriptionDesign();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/*
-	 * public Object[] insertRow() { Member member = new Member(); Object[] row =
-	 * member.toRow(); return row; }
-	 */
 
 	/**
 	 * Create the application.
 	 */
 
-	public InscriptionDesign() {
+	public DesignInscription() {
+
 		initialize();
+		// initializeForm();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
 	private void initialize() {
-		
-	
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1200, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,6 +59,11 @@ public class InscriptionDesign {
 		JPanel containerForm = new JPanel();
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
+
+		/*
+		 * -------------------------------SPECIFIC FORM A METTRE DANS UNE CLASSE A
+		 * PART-----------------------
+		 */
 
 		txtLastName = new JTextField();
 		txtLastName.setBounds(577, 222, 234, 32);
@@ -161,25 +146,23 @@ public class InscriptionDesign {
 						// check if password is validate
 						PasswordValidator passwordValidator = new PasswordValidator();
 						if (passwordValidator.validate(String.valueOf(txtpassword1.getPassword()))) {
-								
-							//everything is ok, create member with textfield
+
+							// everything is ok, create member with textfield
 							Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
 									txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
 									String.valueOf(txtpassword1.getPassword()));
-							
-							//hash and salt password
+
+							// hash and salt password
 							try {
 								HashPassword.generateHashPassword(member);
 							} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							
-							
-							//insert member in db
-							QueryInscription.createMember(member);
-						}
-						else {
+
+							// insert member in db
+							DALQuery.createMember(member);
+						} else {
 							JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
 						}
 
@@ -206,6 +189,13 @@ public class InscriptionDesign {
 		containerForm.add(btnCancel);
 
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				DesignLogin login = new DesignLogin();
+				login.setVisible(true);
+			}
+		});
 		btnConnexion.setBounds(964, 99, 126, 41);
 		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		containerForm.add(btnConnexion);
@@ -217,44 +207,53 @@ public class InscriptionDesign {
 		txtpassword2 = new JPasswordField();
 		txtpassword2.setBounds(577, 631, 234, 32);
 		containerForm.add(txtpassword2);
+
+		JTextArea txtrLeMotDe = new JTextArea();
+		txtrLeMotDe.setDisabledTextColor(new Color(95, 158, 160));
+		txtrLeMotDe.setSelectionColor(new Color(0, 0, 0));
+		txtrLeMotDe.setSelectedTextColor(new Color(95, 158, 160));
+		txtrLeMotDe.setRequestFocusEnabled(false);
+		txtrLeMotDe.setOpaque(false);
+		txtrLeMotDe.setLineWrap(true);
+		txtrLeMotDe.setWrapStyleWord(true);
+		txtrLeMotDe.setBounds(285, 568, 526, 49);
+		txtrLeMotDe.setForeground(Color.BLACK);
+		txtrLeMotDe.setFont(new Font("Nirmala UI", Font.ITALIC, 14));
+		txtrLeMotDe.setEnabled(false);
+		txtrLeMotDe.setEditable(false);
+		txtrLeMotDe.setText(
+				"Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, une majsucule, une minuscule et un caract\u00E8re sp\u00E9cial.");
+		containerForm.add(txtrLeMotDe);
 		
+
+		/******************************************A METTRE DANS MODELE**************************************/
+
 		JPanel ContaineurLogo = new JPanel();
 		ContaineurLogo.setBackground(SystemColor.window);
 		ContaineurLogo.setBounds(10, 11, 208, 213);
 		containerForm.add(ContaineurLogo);
 		ContaineurLogo.setLayout(null);
-		
+
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setBackground(SystemColor.window);
 		Image logo = new ImageIcon(this.getClass().getResource("/logoNesti.png")).getImage();
-		lblLogo.setIcon(new ImageIcon(logo));	
+		lblLogo.setIcon(new ImageIcon(logo));
 		lblLogo.setBounds(0, 0, 200, 195);
 		ContaineurLogo.add(lblLogo);
-		
-		JTextArea txtrLeMotDe = new JTextArea();
-		txtrLeMotDe.setBounds(285, 573, 526, 49);
-		txtrLeMotDe.setForeground(Color.BLUE);
-		txtrLeMotDe.setBackground(SystemColor.text);
-		txtrLeMotDe.setFont(new Font("Nirmala UI", Font.ITALIC, 13));
-		txtrLeMotDe.setEnabled(false);
-		txtrLeMotDe.setEditable(false);
-		txtrLeMotDe.setWrapStyleWord(true);
-		txtrLeMotDe.setLineWrap(true);
-		txtrLeMotDe.setText("Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, un majsucule, une minuscule et un caract\u00E8re sp\u00E9cial.");
-		containerForm.add(txtrLeMotDe);
-		
+
 		JPanel ContainerBackground = new JPanel();
-		ContainerBackground.setBounds(0, 0, 1200, 1100);
+		ContainerBackground.setBounds(0, 0, 1184, 1061);
 		containerForm.add(ContainerBackground);
 		ContainerBackground.setLayout(null);
-		
+
 		JLabel lblBackground = new JLabel("");
+		lblBackground.setRequestFocusEnabled(false);
+		lblBackground.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		Image background = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
 		lblBackground.setIcon(new ImageIcon(background));
-		
-		lblBackground.setBounds(0, 0, 1200, 1100);
+
+		lblBackground.setBounds(0, 0, 1184, 1061);
 		ContainerBackground.add(lblBackground);
-		
 
 	}
 }

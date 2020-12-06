@@ -14,14 +14,9 @@ import java.security.spec.InvalidKeySpecException;
  */
 public class HashPassword {
 
-	public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		
-	}
-
 	public static void generateHashPassword(Member member) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		String originalPassword = member.getPassword();
 		String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);
-		System.out.println(generatedSecuredPasswordHash);
 		member.setPassword(generatedSecuredPasswordHash);
 	}
 	
