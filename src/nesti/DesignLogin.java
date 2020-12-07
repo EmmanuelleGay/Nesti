@@ -37,7 +37,7 @@ public class DesignLogin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,6 +54,7 @@ public class DesignLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public DesignLogin() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 1100);
 		contentPane = new JPanel();
@@ -113,7 +114,8 @@ public class DesignLogin extends JFrame {
 					
 						if(matched) {					
 							System.out.println("bravo");
-							frame.dispose();
+							contentPane.setVisible(false);
+				//			frame.dispose();
 							ViewProfile profileMember = new ViewProfile();
 							profileMember.setVisible(true);
 							
@@ -121,61 +123,21 @@ public class DesignLogin extends JFrame {
 						}
 						else {
 							System.out.println("erreur mdp");
-							JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
+							JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
 						}
 						
 					}
 					else {
 						System.out.println("erreur eamil - login");
-						JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
+						JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
 					}
 	
 				} catch (Exception e) {
 					System.err.println("Erreur de récupération des informations du membre " + e.getMessage());
 				}
 
-					
-				
-					
 				
 				
-				
-			
-				
-				
-		/*		// recover hash password
-				try {
-					HashPassword.recoverHashPassword(passwordTap,member.getPassword());
-				} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-					
-				/*
-				try {
-					MyConnexion.openConnection();
-					String query ="SELECT * from `member` where email = ? and password = ?";
-					PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
-					declaration.setString(1, txtIdLog.getText());
-					declaration.setString(2, passwordTap);
-					
-					ResultSet resultInfo = declaration.executeQuery();
-	
-					System.out.println(resultInfo);
-				
-					if (resultInfo.next()) {
-						System.out.println("bravo");
-					}
-					else {
-						System.out.println("echec");
-					}
-				
-				} catch (Exception e) {
-					System.err.println("Erreur de récupération des informations du membre " + e.getMessage());
-				}
-				
-				
-				*/
 				// methode deux avec getters & setters KO
 		/*		DALQuery.selectLoginMember(txtIdLog.getText(),txtPassword.getText());
 				

@@ -194,9 +194,10 @@ public class DesignInscription {
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
-				DesignLogin frame = new DesignLogin();
-				frame.setVisible(true);
+		//		frame.dispose();
+				frame.setVisible(false);
+				DesignLogin login = new DesignLogin();
+				login.setVisible(true);
 			}
 		});
 		btnConnexion.setBounds(964, 99, 126, 41);
