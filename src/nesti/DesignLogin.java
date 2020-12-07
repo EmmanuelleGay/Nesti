@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
@@ -16,12 +18,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class DesignLogin extends JFrame {
 
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtIdLog;
 	private JLabel IdLog;
@@ -88,12 +94,70 @@ public class DesignLogin extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				String passwordTap = txtPassword.getText();
+				ResultSet resultInfo = null;
+				
+				try {
+					MyConnexion.openConnection();
+					String query ="SELECT password from `member` where email = ? or alias = ?";
+					PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
+					declaration.setString(1, txtIdLog.getText());
+					declaration.setString(2, txtIdLog.getText());
+						
+					resultInfo = declaration.executeQuery();
+				
+					
+					if (resultInfo.next()) {
+						
+						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
+					
+						if(matched) {					
+							System.out.println("bravo");
+							frame.dispose();
+							ViewProfile profileMember = new ViewProfile();
+							profileMember.setVisible(true);
+							
+
+						}
+						else {
+							System.out.println("erreur mdp");
+							JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
+						}
+						
+					}
+					else {
+						System.out.println("erreur eamil - login");
+						JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
+					}
+	
+				} catch (Exception e) {
+					System.err.println("Erreur de récupération des informations du membre " + e.getMessage());
+				}
+
+					
+				
+					
+				
+				
+				
+			
+				
+				
+		/*		// recover hash password
+				try {
+					HashPassword.recoverHashPassword(passwordTap,member.getPassword());
+				} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+				/*
 				try {
 					MyConnexion.openConnection();
 					String query ="SELECT * from `member` where email = ? and password = ?";
 					PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 					declaration.setString(1, txtIdLog.getText());
-					declaration.setString(2, txtPassword.getText());
+					declaration.setString(2, passwordTap);
 					
 					ResultSet resultInfo = declaration.executeQuery();
 	
@@ -111,7 +175,7 @@ public class DesignLogin extends JFrame {
 				}
 				
 				
-				
+				*/
 				// methode deux avec getters & setters KO
 		/*		DALQuery.selectLoginMember(txtIdLog.getText(),txtPassword.getText());
 				

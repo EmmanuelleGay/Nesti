@@ -61,6 +61,10 @@ public class DALQuery extends MyConnexion {
 
 	}
 
+	
+	public static void selectPassword(Member member) {
+		
+	}
 
 	/**
 	 * insert member into database

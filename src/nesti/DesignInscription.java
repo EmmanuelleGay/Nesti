@@ -43,6 +43,8 @@ public class DesignInscription {
 	public DesignInscription() {
 
 		initialize();
+		
+		
 		// initializeForm();
 	}
 
@@ -139,15 +141,15 @@ public class DesignInscription {
 				// check if user insert same password
 				if (String.valueOf(txtpassword1.getPassword()).equals(String.valueOf(txtpassword2.getPassword()))) {
 
-					// check if email is validate
+					// check if email is valid
 					EmailValidator emailValidator = new EmailValidator();
 					if (emailValidator.validate(txtEmail.getText().trim())) {
 
-						// check if password is validate
+						// check if password is valid
 						PasswordValidator passwordValidator = new PasswordValidator();
 						if (passwordValidator.validate(String.valueOf(txtpassword1.getPassword()))) {
 
-							// everything is ok, create member with textfield
+							// everything is ok, create object member
 							Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
 									txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
 									String.valueOf(txtpassword1.getPassword()));
@@ -162,6 +164,7 @@ public class DesignInscription {
 
 							// insert member in db
 							DALQuery.createMember(member);
+							
 						} else {
 							JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
 						}
@@ -192,8 +195,8 @@ public class DesignInscription {
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				DesignLogin login = new DesignLogin();
-				login.setVisible(true);
+				DesignLogin frame = new DesignLogin();
+				frame.setVisible(true);
 			}
 		});
 		btnConnexion.setBounds(964, 99, 126, 41);
