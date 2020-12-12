@@ -28,6 +28,10 @@ public class Member {
 	}
 	*/
 	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String toString() {
 		return "id : " + this.idMember + " nom : " + this.lastName + " prenom : " + this.firstName + " alias: " + alias + " email : " + this.email + " ville : " + this.town + "password : " + this.password ;
 	}
