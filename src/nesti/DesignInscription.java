@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.Font;
 import java.awt.Image;
 
@@ -24,9 +26,9 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;
 
-public class DesignInscription {
+public class DesignInscription extends JFrame{
 
-	protected JFrame frame;
+	private JPanel contentPane;
 	private JTextField txtLastName;
 	private JTextField txtFirstName;
 	private JTextField txtAlias;
@@ -39,29 +41,35 @@ public class DesignInscription {
 	/**
 	 * Create the application.
 	 */
+	
+	DesignInscription frameInscription;
 
 	public DesignInscription() {
 
-		initialize();
+		initializeInscription();
+	//	constructForm(containerForm);
 		
-		
-		// initializeForm();
+	// initializeForm();
+	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 
-	private void initialize() {
-
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 1100);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void initializeInscription() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 1100);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
 
 		JPanel containerForm = new JPanel();
-		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
+		contentPane.add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
-
+		
 		/*
 		 * -------------------------------SPECIFIC FORM A METTRE DANS UNE CLASSE A
 		 * PART-----------------------
@@ -165,16 +173,21 @@ public class DesignInscription {
 							// insert member in db
 							DALQuery.createMember(member);
 							
+							//acces to profil page
+							frameInscription.dispose();
+							ViewProfile frameprofile = new ViewProfile(member);
+							frameprofile.setVisible(true);
+							
 						} else {
-							JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+							JOptionPane.showMessageDialog(frameInscription, "Le mot de passe n'est pas valide");
 						}
 
 					} else {
-						JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
+						JOptionPane.showMessageDialog(frameInscription, "Le format d'email est incorrect");
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+					JOptionPane.showMessageDialog(frameInscription, "Les mots de passe ne correspondent pas");
 				}
 
 			}
@@ -194,8 +207,7 @@ public class DesignInscription {
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-		//		frame.dispose();
-				frame.setVisible(false);
+				frameInscription.dispose();
 				DesignLogin login = new DesignLogin();
 				login.setVisible(true);
 			}
@@ -228,8 +240,12 @@ public class DesignInscription {
 		txtrLeMotDe.setText(
 				"Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, une majsucule, une minuscule et un caract\u00E8re sp\u00E9cial.");
 		containerForm.add(txtrLeMotDe);
+	
 		
-
+		
+		
+		
+		
 		/******************************************A METTRE DANS MODELE**************************************/
 
 		JPanel ContaineurLogo = new JPanel();
@@ -260,4 +276,7 @@ public class DesignInscription {
 		ContainerBackground.add(lblBackground);
 
 	}
+	
+//	private void constructForm(JPanel containerForm) {
+
 }

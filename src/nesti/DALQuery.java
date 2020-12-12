@@ -15,22 +15,6 @@ public class DALQuery extends MyConnexion {
 	static boolean flag;
 
 	/**
-	 * @return the memberEmailIsOk
-	 */
-	public boolean getIsMemberEmailIsOk() {
-		return memberEmailIsOk;
-	}
-
-
-	/**
-	 * @param memberEmailIsOk the memberEmailIsOk to set
-	 */
-	public void setMemberEmailIsOk(boolean memberEmailIsOk) {
-		this.memberEmailIsOk = memberEmailIsOk;
-	}
-
-
-	/**
 	 * print data of member
 	 * 
 	 * @param member
@@ -61,9 +45,8 @@ public class DALQuery extends MyConnexion {
 
 	}
 
-	
 	public static void selectPassword(Member member) {
-		
+
 	}
 
 	/**
@@ -99,25 +82,88 @@ public class DALQuery extends MyConnexion {
 		return flag;
 	}
 
-	public void selectLoginMember(String email, String password) {
-	
+	public static void selectIdMember(Member member) {
+
+		try {
+			MyConnexion.openConnection();
+
+			String query = "SELECT id_member from `member` where email = ?";
+			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
+			declaration.setString(1, member.getEmail());
+
+			ResultSet resultInfo = declaration.executeQuery();
+
+			while (resultInfo.next()) {
+				member.setIdMember(resultInfo.getInt("id_member"));
+				System.out.println(member.getIdMember());
+			}
+		}
+
+		catch (Exception e) {
+			System.err.println("Erreur de récupération de l'ID du membre" + e.getMessage());
+
+		}
+	}
+
+	/*
+	 * public void selectLoginMember(String email, String password) {
+	 * 
+	 * try { openConnection(); String query
+	 * ="SELECT * from `member` where email = ? and password = ?"; PreparedStatement
+	 * declaration = accessDataBase.prepareStatement(query);
+	 * declaration.setString(1, email); declaration.setString(2, password);
+	 * 
+	 * ResultSet resultInfo = declaration.executeQuery();
+	 * setMemberEmailIsOk(resultInfo.next());
+	 * 
+	 * System.out.println(resultInfo);
+	 * 
+	 * } catch (Exception e) {
+	 * System.err.println("Erreur de récupération des informations du membre " +
+	 * e.getMessage()); } }
+	 */
+
+	public static boolean updateMember(Member member) {
+		boolean success = false;
 		try {
 			openConnection();
-			String query ="SELECT * from `member` where email = ? and password = ?";
+
+			String query = "UPDATE `member` SET last_name = ?,first_name = ?,alias = ?,email = ?,town = ?,password = ?, update_date = ? where id_member = ?";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
-			declaration.setString(1, email);
-			declaration.setString(2, password);
-			
-			ResultSet resultInfo = declaration.executeQuery();
-			setMemberEmailIsOk(resultInfo.next());
-			
-			System.out.println(resultInfo);
-			
+
+			declaration.setString(1, member.getLastName());
+			declaration.setString(2, member.getFirstName());
+			declaration.setString(3, member.getAlias());
+			declaration.setString(4, member.getEmail());
+			declaration.setString(5, member.getTown());
+			declaration.setString(6, member.getPassword());
+			declaration.setTimestamp(7, java.sql.Timestamp.from(java.time.Instant.now()));
+			declaration.setInt(8, member.getIdMember());
+
+			int executeUpdate = declaration.executeUpdate();
+			if (executeUpdate == 1) {
+				System.out.println("mise à jour du membre effectué ! ");
+			} else {
+				System.out.println("mise à jour du membre non effectue");
+			}
 		} catch (Exception e) {
-			System.err.println("Erreur de récupération des informations du membre " + e.getMessage());
+			System.err.println("Erreur de mise à jour du membre: " + e.getMessage());
 		}
-	//	return memberEmailIsOk;
+		return success;
+
 	}
-	
-	
+
+	/**
+	 * @return the memberEmailIsOk
+	 */
+	public boolean getIsMemberEmailIsOk() {
+		return memberEmailIsOk;
+	}
+
+	/**
+	 * @param memberEmailIsOk the memberEmailIsOk to set
+	 */
+	public void setMemberEmailIsOk(boolean memberEmailIsOk) {
+		this.memberEmailIsOk = memberEmailIsOk;
+	}
 }

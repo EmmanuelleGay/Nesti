@@ -12,8 +12,8 @@ public class MainScript {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DesignInscription window = new DesignInscription();
-					window.frame.setVisible(true);
+					DesignLogin window = new DesignLogin();
+	//				window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -27,44 +27,34 @@ import java.awt.event.ActionEvent;
 
 public class DesignLogin extends JFrame {
 
-	private JFrame frame;
+	protected JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtIdLog;
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
 	private JTextField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DesignLogin frame = new DesignLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public DesignLogin() {
+		initializeLogin();
 	}
 
+	
 	/**
 	 * Create the frame.
 	 */
-	public DesignLogin() {
+	private void initializeLogin() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 1100);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
 		
+		frame = new JFrame();
+		frame.setVisible(true);
+		frame.setBounds(100, 100, 1200, 1100);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		JPanel containerForm = new JPanel();
-		contentPane.add(containerForm, BorderLayout.CENTER);
+		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
+
 		
 		txtIdLog = new JTextField();
 		txtIdLog.setColumns(10);
@@ -106,7 +96,6 @@ public class DesignLogin extends JFrame {
 					declaration.setString(2, txtIdLog.getText());
 						
 					resultInfo = declaration.executeQuery();
-				
 					
 					if (resultInfo.next()) {
 						
@@ -116,10 +105,10 @@ public class DesignLogin extends JFrame {
 							System.out.println("bravo");
 							contentPane.setVisible(false);
 				//			frame.dispose();
-							ViewProfile profileMember = new ViewProfile();
+							Member member = new Member();
+							ViewProfile profileMember = new ViewProfile(member);
 							profileMember.setVisible(true);
 							
-
 						}
 						else {
 							System.out.println("erreur mdp");
@@ -128,7 +117,7 @@ public class DesignLogin extends JFrame {
 						
 					}
 					else {
-						System.out.println("erreur eamil - login");
+						System.out.println("erreur email - login");
 						JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
 					}
 	
@@ -168,6 +157,14 @@ public class DesignLogin extends JFrame {
 		containerForm.add(lblConnexion);
 		
 		JButton btnCrerUnCompte = new JButton("Cr\u00E9er un compte");
+		btnCrerUnCompte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				DesignInscription frameInscription = new DesignInscription();
+				frameInscription.setVisible(true);
+				
+			}
+		});
 		btnCrerUnCompte.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCrerUnCompte.setBounds(941, 81, 177, 41);
 		containerForm.add(btnCrerUnCompte);
