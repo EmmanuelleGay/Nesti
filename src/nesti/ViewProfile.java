@@ -17,11 +17,13 @@ import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.awt.event.ActionEvent;
 
 public class ViewProfile extends JFrame {
 
-	private JPanel contentPane;
+	private JFrame frame;
 	private JTextField txtLastName;
 	private JTextField txtFirstName;
 	private JTextField txtAlias;
@@ -37,13 +39,16 @@ public class ViewProfile extends JFrame {
 	Member member;
 
 	public ViewProfile(Member member) {
+		DALQuery.selectIdMember(member);
+		System.out.println(member.getEmail());
+		System.out.println(member.getIdMember());
+		System.out.println(member.getPassword());
 		setMember(member);
 		initializeViewProfile();
 		displayMemberInformation();
 
 	}
 
-	
 	private void displayMemberInformation() {
 
 		txtLastName.setText(member.getLastName());
@@ -51,22 +56,20 @@ public class ViewProfile extends JFrame {
 		txtAlias.setText(member.getAlias());
 		txtEmail.setText(member.getEmail());
 		txtTown.setText(member.getTown());
-		// txtPassword1.setText(member.getPassword());
-		// txtPassword2.setText(member.getPassword());
+		txtPassword1.setText(member.getPassword());
+		txtPassword2.setText(member.getPassword());
 
 	}
-	
+
 	private void updateUser() {
-	
+
 		member.setLastName(txtLastName.getText());
 		member.setFirstName(txtFirstName.getText());
 		member.setAlias(txtAlias.getText());
 		member.setEmail(txtEmail.getText());
 		member.setTown(txtTown.getText());
-		
+
 	}
-	
-	
 
 	/**
 	 * Create the frame.
@@ -75,15 +78,13 @@ public class ViewProfile extends JFrame {
 	 */
 
 	private void initializeViewProfile() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 1100);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		frame = new JFrame();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 1200, 1100);
 
 		JPanel containerForm = new JPanel();
-		contentPane.add(containerForm, BorderLayout.CENTER);
+		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
 
 		JLabel lblName = new JLabel("Nom");
@@ -164,6 +165,11 @@ public class ViewProfile extends JFrame {
 		containerForm.add(chckbxAgreeUpdate);
 
 		JButton btnCancel = new JButton("Annuler");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				displayMemberInformation();
+			}
+		});
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancel.setBounds(564, 778, 108, 35);
 		containerForm.add(btnCancel);
@@ -172,13 +178,47 @@ public class ViewProfile extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxAgreeUpdate.isSelected()) {
-					DALQuery.selectIdMember(member);
-					updateUser();
-					DALQuery.updateMember(member);
-					JOptionPane.showMessageDialog(null,"Vos modifications ont bien été prises en compte");
-				}
-				else {
-					JOptionPane.showMessageDialog(null,"Vous devez accepter de modifier vos informations");
+					if (String.valueOf(txtPassword1.getPassword()).equals(String.valueOf(txtPassword2.getPassword()))) {
+						// check if email is valid
+						EmailValidator emailValidator = new EmailValidator();
+						if (emailValidator.validate(txtEmail.getText().trim())) {
+
+							// check if password is valid
+							PasswordValidator passwordValidator = new PasswordValidator();
+							if (passwordValidator.validate(String.valueOf(txtPassword1.getPassword()))) {
+
+								HashPassword hashPassword = new HashPassword();
+								// hash and salt password
+								try {
+									hashPassword.generateHashPassword(member,
+											String.valueOf(txtPassword1.getPassword()));
+								} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								// update info into screen
+								updateUser();
+								
+								// update info into database
+								DALQuery.updateMember(member, hashPassword);
+
+								
+
+								JOptionPane.showMessageDialog(frame, "Vos modifications ont bien été prises en compte");
+
+							} else {
+								JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+							}
+						} else {
+							JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
+						}
+					} else {
+						JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(frame, "Vous devez accepter de modifier vos informations");
 				}
 			}
 		});
@@ -210,6 +250,13 @@ public class ViewProfile extends JFrame {
 		containerForm.add(lblMonProfil);
 
 		JButton btnDconnexion = new JButton("D\u00E9connexion");
+		btnDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				DesignLogin viewLogin = new DesignLogin();
+				
+			}
+		});
 		btnDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDconnexion.setBounds(975, 84, 126, 41);
 		containerForm.add(btnDconnexion);

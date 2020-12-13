@@ -12,7 +12,7 @@ public class MainScript {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DesignLogin window = new DesignLogin();
+					DesignLogin viewLogin = new DesignLogin();
 	//				window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

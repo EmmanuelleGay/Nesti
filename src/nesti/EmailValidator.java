@@ -23,9 +23,9 @@ public class EmailValidator {
     *   hex for validation 
     * @return true valid hex, false invalid hex 
     */ 
-    public boolean validate(final String hex) { 
+    public boolean validate(final String email) { 
 
-     matcher = pattern.matcher(hex); 
+     matcher = pattern.matcher(email); 
      return matcher.matches(); 
 
     } 

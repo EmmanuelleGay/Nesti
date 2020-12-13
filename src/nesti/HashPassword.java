@@ -9,17 +9,28 @@ import java.security.spec.InvalidKeySpecException;
 
 
 public class HashPassword {
+	String hashPassword;
 	
+
+	public HashPassword() {
+	//	this.hashPassword = hashPassword;
+	}
+	
+
 	/**
 	 * Create hash and salt password
 	 * @param member
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
-	public static void generateHashPassword(Member member) throws NoSuchAlgorithmException, InvalidKeySpecException{
-		String originalPassword = member.getPassword();
+	public void generateHashPassword(Member member, String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException{
+		
+	//	String originalPassword;
 		String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);
-		member.setPassword(generatedSecuredPasswordHash);
+	//	member.setPassword(generatedSecuredPasswordHash);
+
+		setHashPassword(generatedSecuredPasswordHash);
+		System.out.println("hash password = " + getHashPassword());
 	}
 	
 	/**
@@ -115,6 +126,25 @@ public class HashPassword {
         return bytes;
     }
  
+    
+    /**
+	 * @return the hashPassword
+	 */
+	public String getHashPassword() {
+		return hashPassword;
+	}
+
+	/**
+	 * @param hashPassword the hashPassword to set
+	 */
+	public void setHashPassword(String hashPassword) {
+		this.hashPassword = hashPassword;
+	}
+	
+	
+	public String toString() {
+		return "hash password : " + this.hashPassword; 
+	}
 }
 
 

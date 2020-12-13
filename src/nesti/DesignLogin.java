@@ -28,12 +28,11 @@ import java.awt.event.ActionEvent;
 public class DesignLogin extends JFrame {
 
 	protected JFrame frame;
-	private JPanel contentPane;
 	private JTextField txtIdLog;
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
 	private JTextField txtPassword;
-
+	Member member;
 	
 	public DesignLogin() {
 		initializeLogin();
@@ -44,7 +43,6 @@ public class DesignLogin extends JFrame {
 	 * Create the frame.
 	 */
 	private void initializeLogin() {
-		
 		
 		frame = new JFrame();
 		frame.setVisible(true);
@@ -86,39 +84,41 @@ public class DesignLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String passwordTap = txtPassword.getText();
+				String email;
 				ResultSet resultInfo = null;
 				
 				try {
 					MyConnexion.openConnection();
-					String query ="SELECT password from `member` where email = ? or alias = ?";
+					String query ="SELECT password, email, alias from `member` where email = ? or alias = ?";
 					PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 					declaration.setString(1, txtIdLog.getText());
 					declaration.setString(2, txtIdLog.getText());
 						
 					resultInfo = declaration.executeQuery();
 					
+										
 					if (resultInfo.next()) {
-						
+						email = resultInfo.getString("email");
 						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
 					
 						if(matched) {					
 							System.out.println("bravo");
-							contentPane.setVisible(false);
-				//			frame.dispose();
-							Member member = new Member();
+							
+							frame.dispose();
+							Member member = new Member(email,txtPassword.getText());
+							
 							ViewProfile profileMember = new ViewProfile(member);
-							profileMember.setVisible(true);
 							
 						}
 						else {
 							System.out.println("erreur mdp");
-							JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
+							JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
 						}
 						
 					}
 					else {
 						System.out.println("erreur email - login");
-						JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
+						JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
 					}
 	
 				} catch (Exception e) {
@@ -161,7 +161,7 @@ public class DesignLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				DesignInscription frameInscription = new DesignInscription();
-				frameInscription.setVisible(true);
+			//	frameInscription.setVisible(true);
 				
 			}
 		});
