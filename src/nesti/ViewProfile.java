@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 
 public class ViewProfile extends JFrame {
 
-	private JPanel contentPane;
+	private JFrame frame;
 	private JTextField txtLastName;
 	private JTextField txtFirstName;
 	private JTextField txtAlias;
@@ -37,6 +37,9 @@ public class ViewProfile extends JFrame {
 	Member member;
 
 	public ViewProfile(Member member) {
+		DALQuery.selectIdMember(member);
+		System.out.println(member.getEmail());
+		System.out.println(member.getIdMember());
 		setMember(member);
 		initializeViewProfile();
 		displayMemberInformation();
@@ -51,8 +54,8 @@ public class ViewProfile extends JFrame {
 		txtAlias.setText(member.getAlias());
 		txtEmail.setText(member.getEmail());
 		txtTown.setText(member.getTown());
-		// txtPassword1.setText(member.getPassword());
-		// txtPassword2.setText(member.getPassword());
+		txtPassword1.setText(member.getPassword());
+		txtPassword2.setText(member.getPassword());
 
 	}
 	
@@ -75,17 +78,17 @@ public class ViewProfile extends JFrame {
 	 */
 
 	private void initializeViewProfile() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 1100);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-
+		frame = new JFrame();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 1200, 1100);
+		
+		
 		JPanel containerForm = new JPanel();
-		contentPane.add(containerForm, BorderLayout.CENTER);
+		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
-
+		
+		
 		JLabel lblName = new JLabel("Nom");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblName.setBounds(318, 228, 72, 23);
@@ -164,6 +167,11 @@ public class ViewProfile extends JFrame {
 		containerForm.add(chckbxAgreeUpdate);
 
 		JButton btnCancel = new JButton("Annuler");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				displayMemberInformation();
+			}
+		});
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancel.setBounds(564, 778, 108, 35);
 		containerForm.add(btnCancel);
@@ -172,13 +180,13 @@ public class ViewProfile extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxAgreeUpdate.isSelected()) {
-					DALQuery.selectIdMember(member);
+					
 					updateUser();
 					DALQuery.updateMember(member);
-					JOptionPane.showMessageDialog(null,"Vos modifications ont bien été prises en compte");
+					JOptionPane.showMessageDialog(frame,"Vos modifications ont bien été prises en compte");
 				}
 				else {
-					JOptionPane.showMessageDialog(null,"Vous devez accepter de modifier vos informations");
+					JOptionPane.showMessageDialog(frame,"Vous devez accepter de modifier vos informations");
 				}
 			}
 		});

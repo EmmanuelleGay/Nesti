@@ -20,7 +20,7 @@ public class DALQuery extends MyConnexion {
 	 * @param member
 	 */
 
-	public static void readAll(Member member) {
+/*	public static void readAll(Member member) {
 		try {
 			Statement declaration = accessDataBase.createStatement();
 			String query = "SELECT * FROM `member`";
@@ -44,11 +44,7 @@ public class DALQuery extends MyConnexion {
 		}
 
 	}
-
-	public static void selectPassword(Member member) {
-
-	}
-
+*/
 	/**
 	 * insert member into database
 	 * 
@@ -87,7 +83,7 @@ public class DALQuery extends MyConnexion {
 		try {
 			MyConnexion.openConnection();
 
-			String query = "SELECT id_member from `member` where email = ?";
+			String query = "SELECT id_member, last_name, first_name, alias, email, town, password from `member` where email = ?";
 			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 			declaration.setString(1, member.getEmail());
 
@@ -95,8 +91,16 @@ public class DALQuery extends MyConnexion {
 
 			while (resultInfo.next()) {
 				member.setIdMember(resultInfo.getInt("id_member"));
-				System.out.println(member.getIdMember());
+				member.setLastName(resultInfo.getString("last_name"));
+				member.setFirstName(resultInfo.getString("first_name"));
+				member.setAlias(resultInfo.getString("alias"));
+				member.setEmail(resultInfo.getString("email"));
+				member.setTown(resultInfo.getString("town"));
+				member.setPassword(resultInfo.getString("password"));
+				
 			}
+			System.out.println(member.getIdMember());
+			System.out.println(member.getEmail());
 		}
 
 		catch (Exception e) {

@@ -33,7 +33,7 @@ public class DesignLogin extends JFrame {
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
 	private JTextField txtPassword;
-
+	Member member;
 	
 	public DesignLogin() {
 		initializeLogin();
@@ -90,24 +90,24 @@ public class DesignLogin extends JFrame {
 				
 				try {
 					MyConnexion.openConnection();
-					String query ="SELECT password from `member` where email = ? or alias = ?";
+					String query ="SELECT password, email, alias from `member` where email = ? or alias = ?";
 					PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 					declaration.setString(1, txtIdLog.getText());
 					declaration.setString(2, txtIdLog.getText());
 						
 					resultInfo = declaration.executeQuery();
-					
+										
 					if (resultInfo.next()) {
 						
 						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
 					
 						if(matched) {					
 							System.out.println("bravo");
-							contentPane.setVisible(false);
-				//			frame.dispose();
+							
+							frame.dispose();
 							Member member = new Member();
+							
 							ViewProfile profileMember = new ViewProfile(member);
-							profileMember.setVisible(true);
 							
 						}
 						else {
@@ -161,7 +161,7 @@ public class DesignLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				DesignInscription frameInscription = new DesignInscription();
-				frameInscription.setVisible(true);
+			//	frameInscription.setVisible(true);
 				
 			}
 		});
