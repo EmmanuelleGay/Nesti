@@ -112,13 +112,13 @@ public class DesignLogin extends JFrame {
 						}
 						else {
 							System.out.println("erreur mdp");
-							JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
+							JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
 						}
 						
 					}
 					else {
 						System.out.println("erreur email - login");
-						JOptionPane.showMessageDialog(null,"Votre email ou mot de passe ne sont pas valides.");
+						JOptionPane.showMessageDialog(frame,"Votre email ou mot de passe ne sont pas valides.");
 					}
 	
 				} catch (Exception e) {

@@ -9,7 +9,7 @@ public class PasswordValidator {
     private Matcher matcher;
 
     private static final String PASSWORD__PATTERN =
-            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,25}$";
+            "^(?=.{8,25}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])(?=.*\\W).*$";
 
     public PasswordValidator(){
         pattern = Pattern.compile(PASSWORD__PATTERN);
@@ -27,7 +27,6 @@ public class PasswordValidator {
         return matcher.matches();
 
     }
-	
 	
 }
 
