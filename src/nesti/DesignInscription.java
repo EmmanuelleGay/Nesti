@@ -52,6 +52,21 @@ public class DesignInscription extends JFrame {
 
 	}
 
+	
+	/**
+	 * Clear text field
+	 */
+	private void resetTextField() {
+		txtLastName.setText("");
+		txtFirstName.setText("");
+		txtAlias.setText("");
+		txtEmail.setText("");
+		txtTown.setText("");
+		txtpassword1.setText("");
+		txtpassword2.setText("");
+	}
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -226,6 +241,7 @@ public class DesignInscription extends JFrame {
 		btnCancel.setBounds(535, 729, 108, 35);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				resetTextField();
 			}
 		});
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));

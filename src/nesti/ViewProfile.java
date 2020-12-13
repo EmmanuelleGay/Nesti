@@ -196,12 +196,14 @@ public class ViewProfile extends JFrame {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-
+								
+								// update info into screen
+								updateUser();
+								
 								// update info into database
 								DALQuery.updateMember(member, hashPassword);
 
-								// update info into screen
-								updateUser();
+								
 
 								JOptionPane.showMessageDialog(frame, "Vos modifications ont bien été prises en compte");
 
@@ -248,6 +250,13 @@ public class ViewProfile extends JFrame {
 		containerForm.add(lblMonProfil);
 
 		JButton btnDconnexion = new JButton("D\u00E9connexion");
+		btnDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				DesignLogin viewLogin = new DesignLogin();
+				
+			}
+		});
 		btnDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDconnexion.setBounds(975, 84, 126, 41);
 		containerForm.add(btnDconnexion);
