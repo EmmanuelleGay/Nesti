@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -26,7 +28,7 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;
 
-public class DesignInscription extends JFrame{
+public class DesignInscription extends JFrame {
 
 	private JFrame frame;
 	private JTextField txtLastName;
@@ -37,19 +39,17 @@ public class DesignInscription extends JFrame{
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
 
-	
 	/**
 	 * Create the application.
 	 */
 
 	public DesignInscription() {
-	
-		
+
 		initializeInscription();
-	//	constructForm(containerForm);
-		
-	// initializeForm();
-	
+		// constructForm(containerForm);
+
+		// initializeForm();
+
 	}
 
 	/**
@@ -61,20 +61,16 @@ public class DesignInscription extends JFrame{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 1200, 1100);
-		
-		
+
 		JPanel containerForm = new JPanel();
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
 		/*
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		*/
+		 * contentPane = new JPanel(); contentPane.setBorder(new EmptyBorder(5, 5, 5,
+		 * 5)); contentPane.setLayout(new BorderLayout(0, 0));
+		 * setContentPane(contentPane);
+		 */
 
-		
-		
 		/*
 		 * -------------------------------SPECIFIC FORM A METTRE DANS UNE CLASSE A
 		 * PART-----------------------
@@ -151,50 +147,74 @@ public class DesignInscription extends JFrame{
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// check if user insert same password
-				if (String.valueOf(txtpassword1.getPassword()).equals(String.valueOf(txtpassword2.getPassword()))) {
+				// check if email or alias already exist in db
+				try {
+					if (DALQuery.isEmailAlreadyExist(txtEmail.getText()) == false) {
+						if (DALQuery.isAliasAlreadyExist(txtAlias.getText()) == false) {
 
-					// check if email is valid
-					EmailValidator emailValidator = new EmailValidator();
-					if (emailValidator.validate(txtEmail.getText().trim())) {
+							if (!txtAlias.getText().equals("")) {
+								// check if user insert same password
+								if (String.valueOf(txtpassword1.getPassword())
+										.equals(String.valueOf(txtpassword2.getPassword()))) {
 
-						// check if password is valid
-						PasswordValidator passwordValidator = new PasswordValidator();
-						if (passwordValidator.validate(String.valueOf(txtpassword1.getPassword()))) {
+									// check if email is a valid email
+									EmailValidator emailValidator = new EmailValidator();
+									if (emailValidator.validate(txtEmail.getText().trim())) {
 
-							// everything is ok, create object member
-							Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
-									txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
-									String.valueOf(txtpassword1.getPassword()));
+										// check if password is a strong password
+										PasswordValidator passwordValidator = new PasswordValidator();
+										if (passwordValidator.validate(String.valueOf(txtpassword1.getPassword()))) {
 
-							// hash and salt password
-							try {
-								HashPassword.generateHashPassword(member);
-							} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+											// everything is ok, create object member
+											Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
+													txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
+													String.valueOf(txtpassword1.getPassword()));
+
+											// hash and salt password
+											try {
+												HashPassword.generateHashPassword(member);
+											} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+
+											// insert member in db
+											DALQuery.createMember(member);
+
+											// acces to profil page
+											frame.dispose();
+											ViewProfile frameprofile = new ViewProfile(member);
+
+										} else {
+											JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+										}
+
+									} else {
+										JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
+									}
+
+								} else {
+									JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+								}
+							} else {
+								JOptionPane.showMessageDialog(frame,
+										"Vous devez compléter tous les champs obligatoires");
 							}
 
-							// insert member in db
-							DALQuery.createMember(member);
-							
-							//acces to profil page
-							frame.dispose();
-							ViewProfile frameprofile = new ViewProfile(member);
-													
 						} else {
-							JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+							JOptionPane.showMessageDialog(frame, "Ce pseudo existe déjà, merci d'en choisir un autre.");
 						}
-
-					} else {
-						JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+					else {
+						JOptionPane.showMessageDialog(frame, "Vous avez déjà un compté créé avec cette adresse email.");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-
 			}
+
 		});
 		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		containerForm.add(btnSubmit);
@@ -244,13 +264,10 @@ public class DesignInscription extends JFrame{
 		txtrLeMotDe.setText(
 				"Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, une majuscule, une minuscule et un caract\u00E8re sp\u00E9cial.");
 		containerForm.add(txtrLeMotDe);
-	
-		
-		
-		
-		
-		
-		/******************************************A METTRE DANS MODELE**************************************/
+
+		/******************************************
+		 * A METTRE DANS MODELE
+		 **************************************/
 
 		JPanel ContaineurLogo = new JPanel();
 		ContaineurLogo.setBackground(SystemColor.window);
@@ -280,7 +297,7 @@ public class DesignInscription extends JFrame{
 		ContainerBackground.add(lblBackground);
 
 	}
-	
+
 //	private void constructForm(JPanel containerForm) {
 
 }

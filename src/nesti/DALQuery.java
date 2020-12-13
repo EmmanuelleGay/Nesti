@@ -20,31 +20,27 @@ public class DALQuery extends MyConnexion {
 	 * @param member
 	 */
 
-/*	public static void readAll(Member member) {
-		try {
-			Statement declaration = accessDataBase.createStatement();
-			String query = "SELECT * FROM `member`";
-			ResultSet resultat = declaration.executeQuery(query);
-
-			// Récupération des données
-			while (resultat.next()) {
-				member.setIdMember(resultat.getInt("id_member"));
-				member.setLastName(resultat.getString("last_name"));
-				member.setFirstName(resultat.getString("first_name"));
-				member.setAlias(resultat.getString("alias"));
-				member.setEmail(resultat.getString("email"));
-				member.setTown(resultat.getString("town"));
-				member.setPassword(resultat.getString("password"));
-
-				System.out.println(member.toString());
-			}
-
-		} catch (Exception e) {
-			System.err.println("Erreur d'affichage du membre : " + e.getMessage());
-		}
-
-	}
-*/
+	/*
+	 * public static void readAll(Member member) { try { Statement declaration =
+	 * accessDataBase.createStatement(); String query = "SELECT * FROM `member`";
+	 * ResultSet resultat = declaration.executeQuery(query);
+	 * 
+	 * // Récupération des données while (resultat.next()) {
+	 * member.setIdMember(resultat.getInt("id_member"));
+	 * member.setLastName(resultat.getString("last_name"));
+	 * member.setFirstName(resultat.getString("first_name"));
+	 * member.setAlias(resultat.getString("alias"));
+	 * member.setEmail(resultat.getString("email"));
+	 * member.setTown(resultat.getString("town"));
+	 * member.setPassword(resultat.getString("password"));
+	 * 
+	 * System.out.println(member.toString()); }
+	 * 
+	 * } catch (Exception e) { System.err.println("Erreur d'affichage du membre : "
+	 * + e.getMessage()); }
+	 * 
+	 * }
+	 */
 	/**
 	 * insert member into database
 	 * 
@@ -96,8 +92,8 @@ public class DALQuery extends MyConnexion {
 				member.setAlias(resultInfo.getString("alias"));
 				member.setEmail(resultInfo.getString("email"));
 				member.setTown(resultInfo.getString("town"));
-		//		member.setPassword(resultInfo.getString("password"));
-				
+				// member.setPassword(resultInfo.getString("password"));
+
 			}
 			System.out.println(member.getIdMember());
 			System.out.println(member.getEmail());
@@ -109,6 +105,46 @@ public class DALQuery extends MyConnexion {
 
 		}
 	}
+
+	public static boolean isEmailAlreadyExist(String email) throws SQLException {
+		ResultSet resultInfo = null;
+		try {
+			MyConnexion.openConnection();
+			String query = "SELECT email from `member` where email = ?";
+			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
+			declaration.setString(1, email);
+
+			resultInfo = declaration.executeQuery();
+
+		}
+
+		catch (Exception e) {
+			System.err.println("Erreur de vérification de l'email" + e.getMessage());
+
+		}
+		return resultInfo.next();
+	}
+	
+	
+	public static boolean isAliasAlreadyExist(String alias) throws SQLException {
+		ResultSet resultInfo = null;
+		try {
+			MyConnexion.openConnection();
+			String query = "SELECT email from `member` where email = ?";
+			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
+			declaration.setString(1, alias);
+
+			resultInfo = declaration.executeQuery();
+
+		}
+
+		catch (Exception e) {
+			System.err.println("Erreur de vérification de l'email" + e.getMessage());
+
+		}
+		return resultInfo.next();
+	}
+	
 
 	/*
 	 * public void selectLoginMember(String email, String password) {
