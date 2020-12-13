@@ -169,17 +169,20 @@ public class DesignInscription extends JFrame {
 											Member member = new Member(txtLastName.getText(), txtFirstName.getText(),
 													txtAlias.getText(), txtEmail.getText(), txtTown.getText(),
 													String.valueOf(txtpassword1.getPassword()));
+											HashPassword hashPassword = new HashPassword();
 
 											// hash and salt password
 											try {
-												HashPassword.generateHashPassword(member);
+
+												hashPassword.generateHashPassword(member,
+														String.valueOf(txtpassword1.getPassword()));
 											} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
 
 											// insert member in db
-											DALQuery.createMember(member);
+											DALQuery.createMember(member, hashPassword);
 
 											// acces to profil page
 											frame.dispose();

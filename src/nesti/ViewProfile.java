@@ -187,18 +187,22 @@ public class ViewProfile extends JFrame {
 							PasswordValidator passwordValidator = new PasswordValidator();
 							if (passwordValidator.validate(String.valueOf(txtPassword1.getPassword()))) {
 
+								HashPassword hashPassword = new HashPassword();
 								// hash and salt password
 								try {
-									HashPassword.generateHashPassword(member);
+									hashPassword.generateHashPassword(member,
+											String.valueOf(txtPassword1.getPassword()));
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 
+								// update info into database
+								DALQuery.updateMember(member, hashPassword);
+
 								// update info into screen
 								updateUser();
-								// update info into database
-								DALQuery.updateMember(member);
+
 								JOptionPane.showMessageDialog(frame, "Vos modifications ont bien été prises en compte");
 
 							} else {

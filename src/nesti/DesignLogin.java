@@ -44,7 +44,6 @@ public class DesignLogin extends JFrame {
 	 */
 	private void initializeLogin() {
 		
-		
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1200, 1100);

@@ -47,11 +47,12 @@ public class DALQuery extends MyConnexion {
 	 * @param name
 	 * @return flag
 	 */
-	public static boolean createMember(Member member) {
+	public static boolean createMember(Member member, HashPassword hashPassword) {
 		try {
 			openConnection();
 
 			System.out.println(member.toString());
+			System.out.println("objet hash password avant insert " + hashPassword.toString());
 			String query = "INSERT INTO `member`(last_name,first_name,alias,email,town,password) VALUES (?,?,?,?,?,?)";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
@@ -60,7 +61,7 @@ public class DALQuery extends MyConnexion {
 			declaration.setString(3, member.getAlias());
 			declaration.setString(4, member.getEmail());
 			declaration.setString(5, member.getTown());
-			declaration.setString(6, member.getPassword());
+			declaration.setString(6, hashPassword.getHashPassword());
 
 			int executeUpdate = declaration.executeUpdate();
 			if (executeUpdate == 1) {
@@ -130,7 +131,7 @@ public class DALQuery extends MyConnexion {
 		ResultSet resultInfo = null;
 		try {
 			MyConnexion.openConnection();
-			String query = "SELECT email from `member` where email = ?";
+			String query = "SELECT alias from `member` where alias = ?";
 			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 			declaration.setString(1, alias);
 
@@ -139,7 +140,7 @@ public class DALQuery extends MyConnexion {
 		}
 
 		catch (Exception e) {
-			System.err.println("Erreur de vérification de l'email" + e.getMessage());
+			System.err.println("Erreur de vérification du pseudo" + e.getMessage());
 
 		}
 		return resultInfo.next();
@@ -164,7 +165,7 @@ public class DALQuery extends MyConnexion {
 	 * e.getMessage()); } }
 	 */
 
-	public static boolean updateMember(Member member) {
+	public static boolean updateMember(Member member, HashPassword hashPassword) {
 		boolean success = false;
 		try {
 			openConnection();
@@ -177,7 +178,7 @@ public class DALQuery extends MyConnexion {
 			declaration.setString(3, member.getAlias());
 			declaration.setString(4, member.getEmail());
 			declaration.setString(5, member.getTown());
-			declaration.setString(6, member.getPassword());
+			declaration.setString(6, hashPassword.getHashPassword());
 			declaration.setTimestamp(7, java.sql.Timestamp.from(java.time.Instant.now()));
 			declaration.setInt(8, member.getIdMember());
 
