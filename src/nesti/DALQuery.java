@@ -83,7 +83,7 @@ public class DALQuery extends MyConnexion {
 		try {
 			MyConnexion.openConnection();
 
-			String query = "SELECT id_member, last_name, first_name, alias, email, town, password from `member` where email = ?";
+			String query = "SELECT id_member, last_name, first_name, alias, email, town from `member` where email = ?";
 			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
 			declaration.setString(1, member.getEmail());
 
@@ -96,11 +96,12 @@ public class DALQuery extends MyConnexion {
 				member.setAlias(resultInfo.getString("alias"));
 				member.setEmail(resultInfo.getString("email"));
 				member.setTown(resultInfo.getString("town"));
-				member.setPassword(resultInfo.getString("password"));
+		//		member.setPassword(resultInfo.getString("password"));
 				
 			}
 			System.out.println(member.getIdMember());
 			System.out.println(member.getEmail());
+			System.out.println(member.getPassword());
 		}
 
 		catch (Exception e) {

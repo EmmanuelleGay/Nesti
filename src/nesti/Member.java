@@ -21,6 +21,11 @@ public class Member {
 		this.password = password;
 	}
 	
+	
+	public Member (String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
 	/*
 	public Object[] toRow() {
 		Object [] tabMember = {this.lastName, this.firstName, this.alias, this.email, this.town, this.password};

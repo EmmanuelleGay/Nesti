@@ -17,6 +17,8 @@ import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.awt.event.ActionEvent;
 
 public class ViewProfile extends JFrame {
@@ -40,13 +42,13 @@ public class ViewProfile extends JFrame {
 		DALQuery.selectIdMember(member);
 		System.out.println(member.getEmail());
 		System.out.println(member.getIdMember());
+		System.out.println(member.getPassword());
 		setMember(member);
 		initializeViewProfile();
 		displayMemberInformation();
 
 	}
 
-	
 	private void displayMemberInformation() {
 
 		txtLastName.setText(member.getLastName());
@@ -58,18 +60,16 @@ public class ViewProfile extends JFrame {
 		txtPassword2.setText(member.getPassword());
 
 	}
-	
+
 	private void updateUser() {
-	
+
 		member.setLastName(txtLastName.getText());
 		member.setFirstName(txtFirstName.getText());
 		member.setAlias(txtAlias.getText());
 		member.setEmail(txtEmail.getText());
 		member.setTown(txtTown.getText());
-		
+
 	}
-	
-	
 
 	/**
 	 * Create the frame.
@@ -82,13 +82,11 @@ public class ViewProfile extends JFrame {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 1200, 1100);
-		
-		
+
 		JPanel containerForm = new JPanel();
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
-		
-		
+
 		JLabel lblName = new JLabel("Nom");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblName.setBounds(318, 228, 72, 23);
@@ -180,13 +178,41 @@ public class ViewProfile extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxAgreeUpdate.isSelected()) {
-					
-					updateUser();
-					DALQuery.updateMember(member);
-					JOptionPane.showMessageDialog(frame,"Vos modifications ont bien été prises en compte");
-				}
-				else {
-					JOptionPane.showMessageDialog(frame,"Vous devez accepter de modifier vos informations");
+					if (String.valueOf(txtPassword1.getPassword()).equals(String.valueOf(txtPassword2.getPassword()))) {
+						// check if email is valid
+						EmailValidator emailValidator = new EmailValidator();
+						if (emailValidator.validate(txtEmail.getText().trim())) {
+
+							// check if password is valid
+							PasswordValidator passwordValidator = new PasswordValidator();
+							if (passwordValidator.validate(String.valueOf(txtPassword1.getPassword()))) {
+
+								// hash and salt password
+								try {
+									HashPassword.generateHashPassword(member);
+								} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+								// update info into screen
+								updateUser();
+								// update info into database
+								DALQuery.updateMember(member);
+								JOptionPane.showMessageDialog(frame, "Vos modifications ont bien été prises en compte");
+
+							} else {
+								JOptionPane.showMessageDialog(frame, "Le mot de passe n'est pas valide");
+							}
+						} else {
+							JOptionPane.showMessageDialog(frame, "Le format d'email est incorrect");
+						}
+					} else {
+						JOptionPane.showMessageDialog(frame, "Les mots de passe ne correspondent pas");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(frame, "Vous devez accepter de modifier vos informations");
 				}
 			}
 		});

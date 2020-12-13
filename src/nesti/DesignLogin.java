@@ -28,7 +28,6 @@ import java.awt.event.ActionEvent;
 public class DesignLogin extends JFrame {
 
 	protected JFrame frame;
-	private JPanel contentPane;
 	private JTextField txtIdLog;
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
@@ -105,7 +104,7 @@ public class DesignLogin extends JFrame {
 							System.out.println("bravo");
 							
 							frame.dispose();
-							Member member = new Member();
+							Member member = new Member(txtIdLog.getText(),txtPassword.getText());
 							
 							ViewProfile profileMember = new ViewProfile(member);
 							
