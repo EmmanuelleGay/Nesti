@@ -11,11 +11,11 @@ import java.security.spec.InvalidKeySpecException;
 public class HashPassword {
 	String hashPassword;
 	
-
+/*
 	public HashPassword() {
 	//	this.hashPassword = hashPassword;
 	}
-	
+	*/
 
 	/**
 	 * Create hash and salt password
@@ -23,14 +23,14 @@ public class HashPassword {
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
-	public void generateHashPassword(Member member, String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException{
+	public void generateHashPassword(String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		
 	//	String originalPassword;
 		String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);
 	//	member.setPassword(generatedSecuredPasswordHash);
 
 		setHashPassword(generatedSecuredPasswordHash);
-		System.out.println("hash password = " + getHashPassword());
+	//	System.out.println("hash password = " + getHashPassword());
 	}
 	
 	/**

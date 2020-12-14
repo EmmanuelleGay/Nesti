@@ -4,14 +4,15 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import toolsDesign.*;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.Color;
 import javax.swing.JCheckBox;
@@ -39,18 +40,16 @@ public class ViewProfile extends JFrame {
 	Member member;
 
 	public ViewProfile(Member member) {
-		DALQuery.selectIdMember(member);
+		DalQuery.selectIdMember(member);
 		System.out.println(member.getEmail());
 		System.out.println(member.getIdMember());
 		System.out.println(member.getPassword());
 		setMember(member);
 		initializeViewProfile();
 		displayMemberInformation();
-
 	}
 
 	private void displayMemberInformation() {
-
 		txtLastName.setText(member.getLastName());
 		txtFirstName.setText(member.getFirstName());
 		txtAlias.setText(member.getAlias());
@@ -58,17 +57,14 @@ public class ViewProfile extends JFrame {
 		txtTown.setText(member.getTown());
 		txtPassword1.setText(member.getPassword());
 		txtPassword2.setText(member.getPassword());
-
 	}
 
 	private void updateUser() {
-
 		member.setLastName(txtLastName.getText());
 		member.setFirstName(txtFirstName.getText());
 		member.setAlias(txtAlias.getText());
 		member.setEmail(txtEmail.getText());
 		member.setTown(txtTown.getText());
-
 	}
 
 	/**
@@ -117,29 +113,19 @@ public class ViewProfile extends JFrame {
 		lblPassword1.setBounds(318, 541, 133, 23);
 		containerForm.add(lblPassword1);
 
-		txtLastName = new JTextField();
-		txtLastName.setColumns(10);
-		txtLastName.setBounds(606, 228, 234, 32);
+		TextField txtLastName = new TextField(228);
 		containerForm.add(txtLastName);
 
-		txtFirstName = new JTextField();
-		txtFirstName.setColumns(10);
-		txtFirstName.setBounds(606, 288, 234, 32);
+		TextField txtFirstName = new TextField(288);
 		containerForm.add(txtFirstName);
 
-		txtAlias = new JTextField();
-		txtAlias.setColumns(10);
-		txtAlias.setBounds(606, 348, 234, 32);
+		TextField txtAlias = new TextField(348);
 		containerForm.add(txtAlias);
 
-		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
-		txtEmail.setBounds(606, 411, 234, 32);
+		TextField txtEmail = new TextField(411);
 		containerForm.add(txtEmail);
 
-		txtTown = new JTextField();
-		txtTown.setColumns(10);
-		txtTown.setBounds(606, 476, 234, 32);
+		TextField txtTown = new TextField(476);
 		containerForm.add(txtTown);
 
 		txtPassword1 = new JPasswordField();
@@ -164,17 +150,15 @@ public class ViewProfile extends JFrame {
 		chckbxAgreeUpdate.setBounds(814, 717, 97, 23);
 		containerForm.add(chckbxAgreeUpdate);
 
-		JButton btnCancel = new JButton("Annuler");
+		Buttons btnCancel = new Buttons("Annuler",576, 519, 108, 35);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				displayMemberInformation();
 			}
 		});
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCancel.setBounds(564, 778, 108, 35);
 		containerForm.add(btnCancel);
 
-		JButton btnSubmit = new JButton("Valider");
+		Buttons btnSubmit = new Buttons("Valider",734, 519, 108, 35);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxAgreeUpdate.isSelected()) {
@@ -190,8 +174,7 @@ public class ViewProfile extends JFrame {
 								HashPassword hashPassword = new HashPassword();
 								// hash and salt password
 								try {
-									hashPassword.generateHashPassword(member,
-											String.valueOf(txtPassword1.getPassword()));
+									hashPassword.generateHashPassword(String.valueOf(txtPassword1.getPassword()));
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -201,7 +184,7 @@ public class ViewProfile extends JFrame {
 								updateUser();
 								
 								// update info into database
-								DALQuery.updateMember(member, hashPassword);
+								DalQuery.updateMember(member, hashPassword);
 
 								
 
@@ -222,8 +205,6 @@ public class ViewProfile extends JFrame {
 				}
 			}
 		});
-		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSubmit.setBounds(732, 778, 108, 35);
 		containerForm.add(btnSubmit);
 
 		JTextArea txtrLeMotDe = new JTextArea();
@@ -249,17 +230,15 @@ public class ViewProfile extends JFrame {
 		lblMonProfil.setBounds(456, 70, 262, 41);
 		containerForm.add(lblMonProfil);
 
-		JButton btnDconnexion = new JButton("D\u00E9connexion");
-		btnDconnexion.addActionListener(new ActionListener() {
+		Buttons btnDeconnexion = new Buttons("D\u00E9connexion",941, 81, 177, 42);
+		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				DesignLogin viewLogin = new DesignLogin();
+				ViewLogin viewLogin = new ViewLogin();
 				
 			}
 		});
-		btnDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnDconnexion.setBounds(975, 84, 126, 41);
-		containerForm.add(btnDconnexion);
+		containerForm.add(btnDeconnexion);
 
 	}
 
