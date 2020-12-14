@@ -190,8 +190,7 @@ public class ViewProfile extends JFrame {
 								HashPassword hashPassword = new HashPassword();
 								// hash and salt password
 								try {
-									hashPassword.generateHashPassword(member,
-											String.valueOf(txtPassword1.getPassword()));
+									hashPassword.generateHashPassword(String.valueOf(txtPassword1.getPassword()));
 								} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

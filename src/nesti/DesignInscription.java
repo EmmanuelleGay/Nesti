@@ -189,8 +189,7 @@ public class DesignInscription extends JFrame {
 											// hash and salt password
 											try {
 
-												hashPassword.generateHashPassword(member,
-														String.valueOf(txtpassword1.getPassword()));
+												hashPassword.generateHashPassword(String.valueOf(txtpassword1.getPassword()));
 											} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
