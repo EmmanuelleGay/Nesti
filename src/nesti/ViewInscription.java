@@ -14,7 +14,6 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -26,7 +25,9 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;
 
-public class DesignInscription extends JFrame {
+import toolsDesign.*;
+
+public class ViewInscription extends JFrame {
 
 	private JFrame frame;
 	private JTextField txtLastName;
@@ -36,12 +37,11 @@ public class DesignInscription extends JFrame {
 	private JTextField txtTown;
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
-
 	/**
 	 * Create the application.
 	 */
 
-	public DesignInscription() {
+	public ViewInscription() {
 
 		initializeInscription();
 		// constructForm(containerForm);
@@ -77,21 +77,13 @@ public class DesignInscription extends JFrame {
 		JPanel containerForm = new JPanel();
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
-		/*
-		 * contentPane = new JPanel(); contentPane.setBorder(new EmptyBorder(5, 5, 5,
-		 * 5)); contentPane.setLayout(new BorderLayout(0, 0));
-		 * setContentPane(contentPane);
-		 */
-
-		/*
-		 * -------------------------------SPECIFIC FORM A METTRE DANS UNE CLASSE A
-		 * PART-----------------------
-		 */
-
-		txtLastName = new JTextField();
-		txtLastName.setBounds(577, 222, 234, 32);
+		
+		TextField txtLastName = new TextField(222);
 		containerForm.add(txtLastName);
-		txtLastName.setColumns(10);
+		
+	//	txtLastName.setBounds(577, 222, 234, 32);
+		
+	//	txtLastName.setColumns(10);
 
 		JLabel lblInscription = new JLabel("INSCRIPTION");
 		lblInscription.setBounds(433, 96, 262, 41);
@@ -109,9 +101,7 @@ public class DesignInscription extends JFrame {
 		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		containerForm.add(lblFirstName);
 
-		txtFirstName = new JTextField();
-		txtFirstName.setBounds(577, 282, 234, 32);
-		txtFirstName.setColumns(10);
+		TextField txtFirstName = new TextField(282);
 		containerForm.add(txtFirstName);
 
 		JLabel lblAlias = new JLabel("Pseudo*");
@@ -119,14 +109,10 @@ public class DesignInscription extends JFrame {
 		lblAlias.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		containerForm.add(lblAlias);
 
-		txtAlias = new JTextField();
-		txtAlias.setBounds(577, 342, 234, 32);
-		txtAlias.setColumns(10);
+		TextField txtAlias = new TextField(342);
 		containerForm.add(txtAlias);
 
-		txtEmail = new JTextField();
-		txtEmail.setBounds(577, 405, 234, 32);
-		txtEmail.setColumns(10);
+		TextField txtEmail = new TextField(405);
 		containerForm.add(txtEmail);
 
 		JLabel lblEmail = new JLabel("Email*");
@@ -139,9 +125,7 @@ public class DesignInscription extends JFrame {
 		lblTown.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		containerForm.add(lblTown);
 
-		txtTown = new JTextField();
-		txtTown.setBounds(577, 470, 234, 32);
-		txtTown.setColumns(10);
+		TextField txtTown = new TextField(470);
 		containerForm.add(txtTown);
 
 		JLabel lblPassword1 = new JLabel("Mot de passe*");
@@ -154,8 +138,9 @@ public class DesignInscription extends JFrame {
 		lblPassword2.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		containerForm.add(lblPassword2);
 
-		JButton btnSubmit = new JButton("Valider");
-		btnSubmit.setBounds(703, 729, 108, 35);
+	
+		Buttons btnSubmit = new Buttons("Valider",703, 729, 108, 35);
+	
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -229,29 +214,26 @@ public class DesignInscription extends JFrame {
 			}
 
 		});
-		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		containerForm.add(btnSubmit);
 
-		JButton btnCancel = new JButton("Annuler");
-		btnCancel.setBounds(535, 729, 108, 35);
+		
+		Buttons btnCancel = new Buttons("Annuler",576, 729, 108, 35);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetTextField();
 			}
 		});
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		containerForm.add(btnCancel);
 
-		JButton btnConnexion = new JButton("Connexion");
+		Buttons btnConnexion = new Buttons("Connexion",998, 96, 108, 42);
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				DesignLogin viewLogin = new DesignLogin();
+				ViewLogin viewLogin = new ViewLogin();
 
 			}
 		});
-		btnConnexion.setBounds(964, 99, 126, 41);
-		btnConnexion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
 		containerForm.add(btnConnexion);
 
 		txtpassword1 = new JPasswordField();
@@ -278,10 +260,6 @@ public class DesignInscription extends JFrame {
 		txtrLeMotDe.setText(
 				"Le mot de passe doit contenir au moins 8 caract\u00E8res, dont un chiffre, une majuscule, une minuscule et un caract\u00E8re sp\u00E9cial.");
 		containerForm.add(txtrLeMotDe);
-
-		/******************************************
-		 * A METTRE DANS MODELE
-		 **************************************/
 
 		JPanel ContaineurLogo = new JPanel();
 		ContaineurLogo.setBackground(SystemColor.window);
@@ -311,5 +289,7 @@ public class DesignInscription extends JFrame {
 		ContainerBackground.add(lblBackground);
 
 	}
+	
+
 
 }

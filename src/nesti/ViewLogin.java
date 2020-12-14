@@ -1,31 +1,23 @@
 package nesti;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
-
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import toolsDesign.*;
 
-public class DesignLogin extends JFrame {
+public class ViewLogin extends JFrame {
 
 	protected JFrame frame;
 	private JTextField txtIdLog;
@@ -34,7 +26,7 @@ public class DesignLogin extends JFrame {
 	private JTextField txtPassword;
 	Member member;
 	
-	public DesignLogin() {
+	public ViewLogin() {
 		initializeLogin();
 	}
 
@@ -54,9 +46,7 @@ public class DesignLogin extends JFrame {
 		containerForm.setLayout(null);
 
 		
-		txtIdLog = new JTextField();
-		txtIdLog.setColumns(10);
-		txtIdLog.setBounds(608, 295, 234, 32);
+		TextField txtIdLog = new TextField(295);
 		containerForm.add(txtIdLog);
 		
 		IdLog = new JLabel("Email ou pseudo");
@@ -69,17 +59,15 @@ public class DesignLogin extends JFrame {
 		lblPasswordLog.setBounds(311, 395, 177, 32);
 		containerForm.add(lblPasswordLog);
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(608, 395, 234, 32);
+		TextField txtPassword = new TextField(395);
 		containerForm.add(txtPassword);
 		
-		JButton btnNewButton = new JButton("Mot de passe oubli\u00E9");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(489, 660, 159, 40);
-		containerForm.add(btnNewButton);
 		
-		JButton btnSubmit = new JButton("Valider");
+		Buttons btnForgetPassword = new Buttons("Mot de passe oubli\u00E9",489, 660, 165, 42);
+		containerForm.add(btnForgetPassword);
+		
+		
+		Buttons btnSubmit = new Buttons("Valider",734, 519, 108, 35);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -97,9 +85,7 @@ public class DesignLogin extends JFrame {
 					resultInfo = declaration.executeQuery();
 												
 					if (resultInfo.next()) {
-						
-						
-						
+	
 						email = resultInfo.getString("email");
 						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
 					
@@ -143,13 +129,10 @@ public class DesignLogin extends JFrame {
 			
 			}
 		});
-		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSubmit.setBounds(734, 519, 108, 35);
 		containerForm.add(btnSubmit);
 		
-		JButton btnCancel = new JButton("Annuler");
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCancel.setBounds(576, 519, 108, 35);
+	
+		Buttons btnCancel = new Buttons("Annuler",576, 519, 108, 35);
 		containerForm.add(btnCancel);
 		
 		JLabel lblConnexion = new JLabel("CONNEXION");
@@ -158,18 +141,17 @@ public class DesignLogin extends JFrame {
 		lblConnexion.setBounds(471, 67, 262, 41);
 		containerForm.add(lblConnexion);
 		
-		JButton btnCrerUnCompte = new JButton("Cr\u00E9er un compte");
-		btnCrerUnCompte.addActionListener(new ActionListener() {
+		
+		Buttons btnCreateAccount = new Buttons ("Cr\u00E9er un compte",941, 81, 177, 42);
+		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				DesignInscription frameInscription = new DesignInscription();
+				ViewInscription frameInscription = new ViewInscription();
 			//	frameInscription.setVisible(true);
 				
 			}
 		});
-		btnCrerUnCompte.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCrerUnCompte.setBounds(941, 81, 177, 41);
-		containerForm.add(btnCrerUnCompte);
+		containerForm.add(btnCreateAccount);
 	
 		JPanel ContaineurLogo = new JPanel();
 		ContaineurLogo.setBackground(SystemColor.window);

@@ -12,7 +12,7 @@ public class MainScript {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DesignLogin viewLogin = new DesignLogin();
+					ViewLogin viewLogin = new ViewLogin();
 					// window.frame.setVisible(true);
 
 
