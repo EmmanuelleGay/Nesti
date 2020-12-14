@@ -95,9 +95,11 @@ public class DesignLogin extends JFrame {
 					declaration.setString(2, txtIdLog.getText());
 						
 					resultInfo = declaration.executeQuery();
-					
-										
+												
 					if (resultInfo.next()) {
+						
+						
+						
 						email = resultInfo.getString("email");
 						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
 					

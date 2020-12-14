@@ -1,15 +1,11 @@
 package nesti;
 
-import java.sql.Statement;
-import java.util.Arrays;
-
-import javax.swing.JTextField;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DALQuery extends MyConnexion {
+public class DalQuery extends MyConnexion {
 
 	private boolean memberEmailIsOk;
 	static boolean flag;
@@ -32,7 +28,6 @@ public class DALQuery extends MyConnexion {
 	 * member.setAlias(resultat.getString("alias"));
 	 * member.setEmail(resultat.getString("email"));
 	 * member.setTown(resultat.getString("town"));
-	 * member.setPassword(resultat.getString("password"));
 	 * 
 	 * System.out.println(member.toString()); }
 	 * 
@@ -125,8 +120,7 @@ public class DALQuery extends MyConnexion {
 		}
 		return resultInfo.next();
 	}
-	
-	
+
 	public static boolean isAliasAlreadyExist(String alias) throws SQLException {
 		ResultSet resultInfo = null;
 		try {
@@ -145,7 +139,6 @@ public class DALQuery extends MyConnexion {
 		}
 		return resultInfo.next();
 	}
-	
 
 	/*
 	 * public void selectLoginMember(String email, String password) {
@@ -170,7 +163,7 @@ public class DALQuery extends MyConnexion {
 		try {
 			openConnection();
 
-			String query = "UPDATE `member` SET last_name = ?,first_name = ?,alias = ?,email = ?,town = ?,password = ?, update_date = ? where id_member = ?";
+			String query = "UPDATE `member` SET last_name = ?,first_name = ?,alias = ?,email = ?,town = ?,password = ?, update_date = now() where id_member = ?";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
 			declaration.setString(1, member.getLastName());
@@ -179,8 +172,9 @@ public class DALQuery extends MyConnexion {
 			declaration.setString(4, member.getEmail());
 			declaration.setString(5, member.getTown());
 			declaration.setString(6, hashPassword.getHashPassword());
-			declaration.setTimestamp(7, java.sql.Timestamp.from(java.time.Instant.now()));
-			declaration.setInt(8, member.getIdMember());
+
+			//declaration.setTimestamp(7, java.sql.Timestamp.from(java.time.Instant.now()));
+			declaration.setInt(7, member.getIdMember());
 
 			int executeUpdate = declaration.executeUpdate();
 			if (executeUpdate == 1) {

@@ -2,9 +2,9 @@ package nesti;
 
 import java.awt.EventQueue;
 
+
 public class MainScript {
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -13,11 +13,14 @@ public class MainScript {
 			public void run() {
 				try {
 					DesignLogin viewLogin = new DesignLogin();
-	//				window.frame.setVisible(true);
+					// window.frame.setVisible(true);
+
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
 }

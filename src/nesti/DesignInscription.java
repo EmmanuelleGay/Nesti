@@ -1,6 +1,6 @@
 package nesti;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,7 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -19,7 +18,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -47,7 +45,6 @@ public class DesignInscription extends JFrame {
 
 		initializeInscription();
 		// constructForm(containerForm);
-
 		// initializeForm();
 
 	}
@@ -164,11 +161,11 @@ public class DesignInscription extends JFrame {
 
 				// check if email or alias already exist in db
 				try {
-					if (DALQuery.isEmailAlreadyExist(txtEmail.getText()) == false) {
-						if (DALQuery.isAliasAlreadyExist(txtAlias.getText()) == false) {
+					if (DalQuery.isEmailAlreadyExist(txtEmail.getText()) == false) {
+						if (DalQuery.isAliasAlreadyExist(txtAlias.getText()) == false) {
 
 							if (!txtAlias.getText().equals("")) {
-								// check if user insert same password
+								// check if user insert same password in both textfield
 								if (String.valueOf(txtpassword1.getPassword())
 										.equals(String.valueOf(txtpassword2.getPassword()))) {
 
@@ -188,7 +185,6 @@ public class DesignInscription extends JFrame {
 
 											// hash and salt password
 											try {
-
 												hashPassword.generateHashPassword(String.valueOf(txtpassword1.getPassword()));
 											} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 												// TODO Auto-generated catch block
@@ -196,7 +192,7 @@ public class DesignInscription extends JFrame {
 											}
 
 											// insert member in db
-											DALQuery.createMember(member, hashPassword);
+											DalQuery.createMember(member, hashPassword);
 
 											// acces to profil page
 											frame.dispose();
@@ -315,7 +311,5 @@ public class DesignInscription extends JFrame {
 		ContainerBackground.add(lblBackground);
 
 	}
-
-//	private void constructForm(JPanel containerForm) {
 
 }

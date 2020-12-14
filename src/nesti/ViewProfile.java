@@ -39,7 +39,7 @@ public class ViewProfile extends JFrame {
 	Member member;
 
 	public ViewProfile(Member member) {
-		DALQuery.selectIdMember(member);
+		DalQuery.selectIdMember(member);
 		System.out.println(member.getEmail());
 		System.out.println(member.getIdMember());
 		System.out.println(member.getPassword());
@@ -200,7 +200,7 @@ public class ViewProfile extends JFrame {
 								updateUser();
 								
 								// update info into database
-								DALQuery.updateMember(member, hashPassword);
+								DalQuery.updateMember(member, hashPassword);
 
 								
 

@@ -14,13 +14,13 @@ public class MyConnexion {
 	/**
 	 * Testons la connexion
 	 */
-
+/*
 	public static void main(String[] args) {
 		openConnection();
 		testConnection();
 		closeConnection();
 	}
-
+*/
 	/**
 	 * open connexion to database Nesti
 	 * 
@@ -41,27 +41,7 @@ public class MyConnexion {
 		}
 	}
 
-	
-/**
- * check if connection is ok
- * 
- * @return flag
- */
-	public static boolean testConnection() {
-		boolean flag = false;
-		try {
-			if (accessDataBase != null) {
-				if (!accessDataBase.isClosed()) {
-					System.out.println("Connexion au serveur... OK");
-					flag = true;
-				}
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(MyConnexion.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return flag;
 
-	};
 	
 	
 	/**
