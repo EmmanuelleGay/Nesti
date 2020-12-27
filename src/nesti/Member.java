@@ -1,7 +1,5 @@
 package nesti;
 
-import javax.swing.JTextField;
-
 public class Member {
 	int idMember;
 	String lastName;
@@ -26,12 +24,6 @@ public class Member {
 		this.email = email;
 		this.password = password;
 	}
-	/*
-	public Object[] toRow() {
-		Object [] tabMember = {this.lastName, this.firstName, this.alias, this.email, this.town, this.password};
-		return tabMember;
-	}
-	*/
 	
 	public Member() {
 		// TODO Auto-generated constructor stub

@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.SystemColor;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
@@ -41,9 +43,6 @@ public class ViewProfile extends JFrame {
 
 	public ViewProfile(Member member) {
 		DalQuery.selectIdMember(member);
-		System.out.println(member.getEmail());
-		System.out.println(member.getIdMember());
-		System.out.println(member.getPassword());
 		setMember(member);
 		initializeViewProfile();
 		displayMemberInformation();
@@ -83,74 +82,68 @@ public class ViewProfile extends JFrame {
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
 
-		JLabel lblName = new JLabel("Nom");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblName.setBounds(318, 228, 72, 23);
+		Label lblName = new Label("Nom",228);
 		containerForm.add(lblName);
 
-		JLabel lblFirstName = new JLabel("Pr\u00E9nom");
-		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblFirstName.setBounds(318, 288, 72, 23);
+		Label lblFirstName = new Label("Pr\u00E9nom",288);
 		containerForm.add(lblFirstName);
 
-		JLabel lblAlias = new JLabel("Pseudo*");
-		lblAlias.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblAlias.setBounds(318, 348, 72, 23);
+		Label lblAlias = new Label("Pseudo*",348);
 		containerForm.add(lblAlias);
 
-		JLabel lblEmail = new JLabel("Email*");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblEmail.setBounds(318, 411, 72, 23);
+		Label lblEmail = new Label("Email*",411);
 		containerForm.add(lblEmail);
 
-		JLabel lblTown = new JLabel("Ville");
-		lblTown.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblTown.setBounds(318, 476, 72, 23);
+		Label lblTown = new Label("Ville",476);
 		containerForm.add(lblTown);
 
-		JLabel lblPassword1 = new JLabel("Mot de passe*");
-		lblPassword1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPassword1.setBounds(318, 541, 133, 23);
+		Label lblPassword1 = new Label("Mot de passe*",541);
 		containerForm.add(lblPassword1);
 
-		TextField txtLastName = new TextField(228);
+		txtLastName = new JTextField();
+		txtLastName.setColumns(10);
+		txtLastName.setBounds(606, 228, 234, 32);
 		containerForm.add(txtLastName);
 
-		TextField txtFirstName = new TextField(288);
+		txtFirstName = new JTextField();
+		txtFirstName.setColumns(10);
+		txtFirstName.setBounds(606, 288, 234, 32);
 		containerForm.add(txtFirstName);
 
-		TextField txtAlias = new TextField(348);
+		txtAlias = new JTextField();
+		txtAlias.setColumns(10);
+		txtAlias.setBounds(606, 348, 234, 32);
 		containerForm.add(txtAlias);
 
-		TextField txtEmail = new TextField(411);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(606, 411, 234, 32);
 		containerForm.add(txtEmail);
 
-		TextField txtTown = new TextField(476);
+		txtTown = new JTextField();
+		txtTown.setColumns(10);
+		txtTown.setBounds(606, 476, 234, 32);
 		containerForm.add(txtTown);
 
 		txtPassword1 = new JPasswordField();
 		txtPassword1.setBounds(606, 532, 234, 32);
 		containerForm.add(txtPassword1);
 
-		JLabel lblPassword2 = new JLabel("Confirmation mot de passe*");
-		lblPassword2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPassword2.setBounds(324, 637, 226, 23);
+		Label lblPassword2 = new Label("Confirmation mot de passe*",637);
 		containerForm.add(lblPassword2);
 
 		txtPassword2 = new JPasswordField();
 		txtPassword2.setBounds(606, 635, 234, 32);
 		containerForm.add(txtPassword2);
 
-		JLabel lblAgreeUpdate = new JLabel("Je souhaite modifier mes informations");
-		lblAgreeUpdate.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblAgreeUpdate.setBounds(324, 714, 414, 23);
+		Label lblAgreeUpdate = new Label("Je souhaite modifier mes informations",714);
 		containerForm.add(lblAgreeUpdate);
 
 		JCheckBox chckbxAgreeUpdate = new JCheckBox("");
 		chckbxAgreeUpdate.setBounds(814, 717, 97, 23);
 		containerForm.add(chckbxAgreeUpdate);
 
-		Buttons btnCancel = new Buttons("Annuler",576, 519, 108, 35);
+		Buttons btnCancel = new Buttons("Annuler",576, 789, 108, 35);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				displayMemberInformation();
@@ -158,7 +151,8 @@ public class ViewProfile extends JFrame {
 		});
 		containerForm.add(btnCancel);
 
-		Buttons btnSubmit = new Buttons("Valider",734, 519, 108, 35);
+		Buttons btnSubmit = new Buttons("Valider",703, 789, 108, 35);
+		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxAgreeUpdate.isSelected()) {
@@ -239,7 +233,23 @@ public class ViewProfile extends JFrame {
 			}
 		});
 		containerForm.add(btnDeconnexion);
+		
+		JPanel ContaineurLogo = new JPanel();
+		ContaineurLogo.setBackground(SystemColor.window);
+		ContaineurLogo.setBounds(10, 11, 208, 213);
+		containerForm.add(ContaineurLogo);
+		ContaineurLogo.setLayout(null);
 
+		Label lblLogo = new Label("logo",0);
+		ContaineurLogo.add(lblLogo);
+
+		JPanel ContainerBackground = new JPanel();
+		ContainerBackground.setBounds(0, 0, 1184, 1061);
+		containerForm.add(ContainerBackground);
+		ContainerBackground.setLayout(null);
+
+		Label lblBackground = new Label("background",0);
+		ContainerBackground.add(lblBackground);
 	}
 
 	/**
