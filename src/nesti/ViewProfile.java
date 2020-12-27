@@ -86,28 +86,18 @@ public class ViewProfile extends JFrame {
 		containerForm.add(lblName);
 
 		Label lblFirstName = new Label("Pr\u00E9nom",288);
-//		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-//		lblFirstName.setBounds(318, 288, 72, 23);
 		containerForm.add(lblFirstName);
 
 		Label lblAlias = new Label("Pseudo*",348);
-	//	lblAlias.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblAlias.setBounds(318, 348, 72, 23);
 		containerForm.add(lblAlias);
 
 		Label lblEmail = new Label("Email*",411);
-	//	lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblEmail.setBounds(318, 411, 72, 23);
 		containerForm.add(lblEmail);
 
 		Label lblTown = new Label("Ville",476);
-	//	lblTown.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblTown.setBounds(318, 476, 72, 23);
 		containerForm.add(lblTown);
 
 		Label lblPassword1 = new Label("Mot de passe*",541);
-	//	lblPassword1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblPassword1.setBounds(318, 541, 133, 23);
 		containerForm.add(lblPassword1);
 
 		txtLastName = new JTextField();
@@ -140,8 +130,6 @@ public class ViewProfile extends JFrame {
 		containerForm.add(txtPassword1);
 
 		Label lblPassword2 = new Label("Confirmation mot de passe*",637);
-	//	lblPassword2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblPassword2.setBounds(324, 637, 226, 23);
 		containerForm.add(lblPassword2);
 
 		txtPassword2 = new JPasswordField();
@@ -149,8 +137,6 @@ public class ViewProfile extends JFrame {
 		containerForm.add(txtPassword2);
 
 		Label lblAgreeUpdate = new Label("Je souhaite modifier mes informations",714);
-	//	lblAgreeUpdate.setFont(new Font("Tahoma", Font.PLAIN, 17));
-	//	lblAgreeUpdate.setBounds(324, 714, 414, 23);
 		containerForm.add(lblAgreeUpdate);
 
 		JCheckBox chckbxAgreeUpdate = new JCheckBox("");
