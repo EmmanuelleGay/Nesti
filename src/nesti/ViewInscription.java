@@ -30,11 +30,11 @@ import toolsDesign.*;
 public class ViewInscription extends JFrame {
 
 	private JFrame frame;
-	private JTextField txtLastName;
-	private JTextField txtFirstName;
-	private JTextField txtAlias;
-	private JTextField txtEmail;
-	private JTextField txtTown;
+	private TextField txtLastName;
+	private TextField txtFirstName;
+	private TextField txtAlias;
+	private TextField txtEmail;
+	private TextField txtTown;
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
 	/**
@@ -42,10 +42,7 @@ public class ViewInscription extends JFrame {
 	 */
 
 	public ViewInscription() {
-
 		initializeInscription();
-		// constructForm(containerForm);
-		// initializeForm();
 
 	}
 
@@ -78,64 +75,43 @@ public class ViewInscription extends JFrame {
 		frame.getContentPane().add(containerForm, BorderLayout.CENTER);
 		containerForm.setLayout(null);
 		
-		TextField txtLastName = new TextField(222);
+		TextField txtLastName = new TextField("txtLastName",222);
 		containerForm.add(txtLastName);
-		
-	//	txtLastName.setBounds(577, 222, 234, 32);
-		
-	//	txtLastName.setColumns(10);
 
-		JLabel lblInscription = new JLabel("INSCRIPTION");
-		lblInscription.setBounds(433, 96, 262, 41);
-		lblInscription.setFont(new Font("Verdana", Font.PLAIN, 22));
-		lblInscription.setHorizontalAlignment(SwingConstants.CENTER);
+		Label lblInscription = new Label("INSCRIPTION");
 		containerForm.add(lblInscription);
 
-		JLabel lblName = new JLabel("Nom");
-		lblName.setBounds(289, 222, 72, 23);
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblName = new Label("Nom",222);
 		containerForm.add(lblName);
 
-		JLabel lblFirstName = new JLabel("Pr\u00E9nom");
-		lblFirstName.setBounds(289, 282, 72, 23);
-		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblFirstName = new Label("Pr\u00E9nom",282);
 		containerForm.add(lblFirstName);
 
-		TextField txtFirstName = new TextField(282);
+		TextField txtFirstName = new TextField("txtFirstName",282);
 		containerForm.add(txtFirstName);
 
-		JLabel lblAlias = new JLabel("Pseudo*");
-		lblAlias.setBounds(289, 342, 72, 23);
-		lblAlias.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblAlias = new Label("Pseudo*",342);
 		containerForm.add(lblAlias);
 
-		TextField txtAlias = new TextField(342);
+		TextField txtAlias = new TextField("txtAlias",342);
 		containerForm.add(txtAlias);
 
-		TextField txtEmail = new TextField(405);
+		TextField txtEmail = new TextField("txtEmail",405);
 		containerForm.add(txtEmail);
 
-		JLabel lblEmail = new JLabel("Email*");
-		lblEmail.setBounds(289, 405, 72, 23);
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblEmail = new Label("Email*",405);
 		containerForm.add(lblEmail);
 
-		JLabel lblTown = new JLabel("Ville");
-		lblTown.setBounds(289, 470, 72, 23);
-		lblTown.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblTown = new Label("Ville",470);
 		containerForm.add(lblTown);
 
-		TextField txtTown = new TextField(470);
+		TextField txtTown = new TextField("txtTown",470);
 		containerForm.add(txtTown);
 
-		JLabel lblPassword1 = new JLabel("Mot de passe*");
-		lblPassword1.setBounds(289, 526, 133, 23);
-		lblPassword1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblPassword1 = new Label("Mot de passe*",526);
 		containerForm.add(lblPassword1);
 
-		JLabel lblPassword2 = new JLabel("Confirmation mot de passe*");
-		lblPassword2.setBounds(295, 633, 226, 23);
-		lblPassword2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Label lblPassword2 = new Label("Confirmation mot de passe*",633);
 		containerForm.add(lblPassword2);
 
 	
@@ -215,8 +191,7 @@ public class ViewInscription extends JFrame {
 
 		});
 		containerForm.add(btnSubmit);
-
-		
+	
 		Buttons btnCancel = new Buttons("Annuler",576, 729, 108, 35);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -267,11 +242,7 @@ public class ViewInscription extends JFrame {
 		containerForm.add(ContaineurLogo);
 		ContaineurLogo.setLayout(null);
 
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setBackground(SystemColor.window);
-		Image logo = new ImageIcon(this.getClass().getResource("/logoNesti.png")).getImage();
-		lblLogo.setIcon(new ImageIcon(logo));
-		lblLogo.setBounds(0, 0, 200, 195);
+		Label lblLogo = new Label("logo",0);
 		ContaineurLogo.add(lblLogo);
 
 		JPanel ContainerBackground = new JPanel();
@@ -279,13 +250,7 @@ public class ViewInscription extends JFrame {
 		containerForm.add(ContainerBackground);
 		ContainerBackground.setLayout(null);
 
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setRequestFocusEnabled(false);
-		lblBackground.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		Image background = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
-		lblBackground.setIcon(new ImageIcon(background));
-
-		lblBackground.setBounds(0, 0, 1184, 1061);
+		Label lblBackground = new Label("background",0);
 		ContainerBackground.add(lblBackground);
 
 	}

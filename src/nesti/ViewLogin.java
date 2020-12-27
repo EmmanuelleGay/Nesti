@@ -20,7 +20,7 @@ import toolsDesign.*;
 public class ViewLogin extends JFrame {
 
 	protected JFrame frame;
-	private JTextField txtIdLog;
+	private TextField txtIdLog;
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
 	private JTextField txtPassword;
@@ -46,7 +46,7 @@ public class ViewLogin extends JFrame {
 		containerForm.setLayout(null);
 
 		
-		TextField txtIdLog = new TextField(295);
+		TextField txtIdLog = new TextField("txtIdLog",295);
 		containerForm.add(txtIdLog);
 		
 		IdLog = new JLabel("Email ou pseudo");
@@ -59,7 +59,7 @@ public class ViewLogin extends JFrame {
 		lblPasswordLog.setBounds(311, 395, 177, 32);
 		containerForm.add(lblPasswordLog);
 		
-		TextField txtPassword = new TextField(395);
+		TextField txtPassword = new TextField("txtPassword",395);
 		containerForm.add(txtPassword);
 		
 		
@@ -71,7 +71,6 @@ public class ViewLogin extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String passwordTap = txtPassword.getText();
 				String email;
 				ResultSet resultInfo = null;
 				
@@ -87,13 +86,14 @@ public class ViewLogin extends JFrame {
 					if (resultInfo.next()) {
 	
 						email = resultInfo.getString("email");
-						boolean matched = HashPassword.validatePassword(passwordTap,resultInfo.getString(1));
+						boolean matched = HashPassword.validatePassword(txtPassword.getText(),resultInfo.getString(1));
 					
 						if(matched) {					
-							System.out.println("bravo");
-							
+						
 							frame.dispose();
 							Member member = new Member(email,txtPassword.getText());
+	
+							System.out.println("ok");
 							
 							ViewProfile profileMember = new ViewProfile(member);
 							
@@ -110,22 +110,8 @@ public class ViewLogin extends JFrame {
 					}
 	
 				} catch (Exception e) {
-					System.err.println("Erreur de récupération des informations du membre " + e.getMessage());
+					System.err.println("VIEW LOGIN Erreur de récupération des informations du membre " + e.getMessage());
 				}
-
-				
-				
-				// methode deux avec getters & setters KO
-		/*		DALQuery.selectLoginMember(txtIdLog.getText(),txtPassword.getText());
-				
-				if(DALQuery.getIsMemberEmailIsOk()) {
-					System.out.println("bravo");
-				}
-				else {
-					System.out.println("echec");
-
-				}
-				*/
 			
 			}
 		});
@@ -135,10 +121,7 @@ public class ViewLogin extends JFrame {
 		Buttons btnCancel = new Buttons("Annuler",576, 519, 108, 35);
 		containerForm.add(btnCancel);
 		
-		JLabel lblConnexion = new JLabel("CONNEXION");
-		lblConnexion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConnexion.setFont(new Font("Verdana", Font.PLAIN, 22));
-		lblConnexion.setBounds(471, 67, 262, 41);
+		Label lblConnexion = new Label("CONNEXION");
 		containerForm.add(lblConnexion);
 		
 		
@@ -147,7 +130,6 @@ public class ViewLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				ViewInscription frameInscription = new ViewInscription();
-			//	frameInscription.setVisible(true);
 				
 			}
 		});
@@ -159,11 +141,7 @@ public class ViewLogin extends JFrame {
 		containerForm.add(ContaineurLogo);
 		ContaineurLogo.setLayout(null);
 
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setBackground(SystemColor.window);
-		Image logo = new ImageIcon(this.getClass().getResource("/logoNesti.png")).getImage();
-		lblLogo.setIcon(new ImageIcon(logo));
-		lblLogo.setBounds(0, 0, 200, 195);
+		Label lblLogo = new Label("logo",0);
 		ContaineurLogo.add(lblLogo);
 
 		JPanel ContainerBackground = new JPanel();
@@ -171,11 +149,8 @@ public class ViewLogin extends JFrame {
 		containerForm.add(ContainerBackground);
 		ContainerBackground.setLayout(null);
 
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setRequestFocusEnabled(false);
-		lblBackground.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		Image background = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
-		lblBackground.setIcon(new ImageIcon(background));
+		Label lblBackground = new Label("background",0);
+		ContainerBackground.add(lblBackground);
 
 		lblBackground.setBounds(0, 0, 1184, 1061);
 		ContainerBackground.add(lblBackground);

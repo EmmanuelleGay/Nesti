@@ -1,6 +1,5 @@
 package nesti;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,8 +45,6 @@ public class DalQuery extends MyConnexion {
 		try {
 			openConnection();
 
-			System.out.println(member.toString());
-			System.out.println("objet hash password avant insert " + hashPassword.toString());
 			String query = "INSERT INTO `member`(last_name,first_name,alias,email,town,password) VALUES (?,?,?,?,?,?)";
 			PreparedStatement declaration = accessDataBase.prepareStatement(query);
 
@@ -70,6 +67,24 @@ public class DalQuery extends MyConnexion {
 		return flag;
 	}
 
+	public static boolean loginMember(String email, String pseudo) throws SQLException {
+		ResultSet resultInfo = null;
+		try {
+			MyConnexion.openConnection();
+			String query = "SELECT password, email, alias from `member` where email = ? or alias = ?";
+			PreparedStatement declaration = MyConnexion.accessDataBase.prepareStatement(query);
+			declaration.setString(1, email);
+			declaration.setString(2, pseudo);
+
+			resultInfo = declaration.executeQuery();
+		} 
+		catch (Exception e) {
+			System.err.println("Erreur de récupération du login de l'utilisateur" + e.getMessage());
+		}
+		return resultInfo.next();
+	}
+
+	
 	public static void selectIdMember(Member member) {
 
 		try {
@@ -88,12 +103,7 @@ public class DalQuery extends MyConnexion {
 				member.setAlias(resultInfo.getString("alias"));
 				member.setEmail(resultInfo.getString("email"));
 				member.setTown(resultInfo.getString("town"));
-				// member.setPassword(resultInfo.getString("password"));
-
 			}
-			System.out.println(member.getIdMember());
-			System.out.println(member.getEmail());
-			System.out.println(member.getPassword());
 		}
 
 		catch (Exception e) {
@@ -173,7 +183,8 @@ public class DalQuery extends MyConnexion {
 			declaration.setString(5, member.getTown());
 			declaration.setString(6, hashPassword.getHashPassword());
 
-			//declaration.setTimestamp(7, java.sql.Timestamp.from(java.time.Instant.now()));
+			// declaration.setTimestamp(7,
+			// java.sql.Timestamp.from(java.time.Instant.now()));
 			declaration.setInt(7, member.getIdMember());
 
 			int executeUpdate = declaration.executeUpdate();

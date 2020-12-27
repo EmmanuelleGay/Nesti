@@ -14,13 +14,7 @@ public class MyConnexion {
 	/**
 	 * Testons la connexion
 	 */
-/*
-	public static void main(String[] args) {
-		openConnection();
-		testConnection();
-		closeConnection();
-	}
-*/
+
 	/**
 	 * open connexion to database Nesti
 	 * 
@@ -42,8 +36,6 @@ public class MyConnexion {
 	}
 
 
-	
-	
 	/**
 	 * close connection and alert if needed
 	 */
