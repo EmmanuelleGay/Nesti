@@ -30,7 +30,6 @@ public class ViewLogin extends JFrame {
 		initializeLogin();
 	}
 
-	
 	/**
 	 * Create the frame.
 	 */
@@ -64,6 +63,13 @@ public class ViewLogin extends JFrame {
 		
 		
 		Buttons btnForgetPassword = new Buttons("Mot de passe oubli\u00E9",489, 660, 165, 42);
+		btnForgetPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				ViewPasswordForget framePassword = new ViewPasswordForget();
+				
+			}
+		});
 		containerForm.add(btnForgetPassword);
 		
 		
@@ -117,13 +123,11 @@ public class ViewLogin extends JFrame {
 		});
 		containerForm.add(btnSubmit);
 		
-	
 		Buttons btnCancel = new Buttons("Annuler",576, 519, 108, 35);
 		containerForm.add(btnCancel);
 		
 		Label lblConnexion = new Label("CONNEXION");
 		containerForm.add(lblConnexion);
-		
 		
 		Buttons btnCreateAccount = new Buttons ("Cr\u00E9er un compte",941, 81, 177, 42);
 		btnCreateAccount.addActionListener(new ActionListener() {
@@ -155,6 +159,5 @@ public class ViewLogin extends JFrame {
 		lblBackground.setBounds(0, 0, 1184, 1061);
 		ContainerBackground.add(lblBackground);
 
-	
 	}
 }

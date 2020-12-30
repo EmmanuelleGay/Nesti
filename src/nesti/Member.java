@@ -9,7 +9,15 @@ public class Member {
 	String town;
 	String password;
 	
-	
+	/**
+	 * Constructor for inscription
+	 * @param lastName
+	 * @param firstName
+	 * @param alias
+	 * @param email
+	 * @param town
+	 * @param password
+	 */
 	public Member(String lastName, String firstName, String alias, String email, String town, String password) {
 		this.lastName = lastName;
 		this.firstName = firstName; 
@@ -19,16 +27,20 @@ public class Member {
 		this.password = password;
 	}
 	
-	
+	/**
+	 * constructor for login
+	 * @param email
+	 * @param password
+	 */
 	public Member (String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
-	
+	/*
 	public Member() {
 		// TODO Auto-generated constructor stub
 	}
-
+*/
 	public String toString() {
 		return "id : " + this.idMember + " nom : " + this.lastName + " prenom : " + this.firstName + " alias: " + alias + " email : " + this.email + " ville : " + this.town + "password : " + this.password ;
 	}

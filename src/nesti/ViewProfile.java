@@ -35,9 +35,6 @@ public class ViewProfile extends JFrame {
 	private JPasswordField txtPassword1;
 	private JPasswordField txtPassword2;
 
-	/**
-	 * Launch the application.
-	 */
 
 	Member member;
 
@@ -180,8 +177,6 @@ public class ViewProfile extends JFrame {
 								// update info into database
 								DalQuery.updateMember(member, hashPassword);
 
-								
-
 								JOptionPane.showMessageDialog(frame, "Vos modifications ont bien été prises en compte");
 
 							} else {
@@ -218,10 +213,7 @@ public class ViewProfile extends JFrame {
 		txtrLeMotDe.setBounds(318, 575, 526, 49);
 		containerForm.add(txtrLeMotDe);
 
-		JLabel lblMonProfil = new JLabel("MON PROFIL");
-		lblMonProfil.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMonProfil.setFont(new Font("Verdana", Font.PLAIN, 22));
-		lblMonProfil.setBounds(456, 70, 262, 41);
+		Label lblMonProfil = new Label("MON PROFIL");
 		containerForm.add(lblMonProfil);
 
 		Buttons btnDeconnexion = new Buttons("D\u00E9connexion",941, 81, 177, 42);

@@ -5,22 +5,14 @@ package nesti;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-
 import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
-
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.Color;

@@ -13,8 +13,6 @@ public class MainScript {
 			public void run() {
 				try {
 					ViewLogin viewLogin = new ViewLogin();
-					// window.frame.setVisible(true);
-
 
 				} catch (Exception e) {
 					e.printStackTrace();

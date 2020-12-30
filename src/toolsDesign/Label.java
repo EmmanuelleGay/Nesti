@@ -30,9 +30,10 @@ public class Label extends JLabel {
 			this.setIcon(new ImageIcon(background));
 			this.setBounds(0, 0, 1184, 1061);
 		}
+		
 
 		else {
-			this.setBounds(289, y, 414, 23);
+			this.setBounds(289, y, 550, 23);
 			this.setFont(new Font("Tahoma", Font.PLAIN, 17));
 			this.setForeground(new Color(0, 0, 0));
 			this.setText(name);
@@ -44,7 +45,7 @@ public class Label extends JLabel {
 	 * @param name
 	 */
 	public Label (String name) {
-		this.setBounds(433, 96, 262, 41);
+		this.setBounds(350, 96, 500, 41);
 		this.setFont(new Font("Verdana", Font.PLAIN, 35));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		this.setText(name);
