@@ -17,7 +17,6 @@ public class ViewPasswordForget {
 		initializeViewPasswordForget();
 	}
 	
-	
 	private void initializeViewPasswordForget() {
 		frame = new JFrame();
 		frame.setVisible(true);
