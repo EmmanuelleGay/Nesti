@@ -19,6 +19,9 @@ public class ViewPasswordForget {
 		initializeViewPasswordForget();
 	}
 	
+	/**
+	 * Used to generate a new password if user forget it
+	 */
 	private void initializeViewPasswordForget() {
 		frame = new JFrame();
 		frame.setVisible(true);

@@ -1,4 +1,4 @@
-package nesti;
+package toolsControl;
 
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;
@@ -11,12 +11,6 @@ import java.security.spec.InvalidKeySpecException;
 public class HashPassword {
 	String hashPassword;
 	
-/*
-	public HashPassword() {
-	//	this.hashPassword = hashPassword;
-	}
-	*/
-
 	/**
 	 * Create hash and salt password
 	 * @param member
@@ -24,19 +18,14 @@ public class HashPassword {
 	 * @throws InvalidKeySpecException
 	 */
 	public void generateHashPassword(String originalPassword) throws NoSuchAlgorithmException, InvalidKeySpecException{
-		
-	//	String originalPassword;
 		String generatedSecuredPasswordHash = generateStorngPasswordHash(originalPassword);
-	//	member.setPassword(generatedSecuredPasswordHash);
-
 		setHashPassword(generatedSecuredPasswordHash);
-	//	System.out.println("hash password = " + getHashPassword());
 	}
 	
 	/**
 	 * 
 	 * @param password
-	 * @return iterations + ":" + toHex(salt) + ":" + toHex(hash
+	 * @return iterations + ":" + toHex(salt) + ":" + toHex(hash)
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeySpecException
 	 */
@@ -141,10 +130,6 @@ public class HashPassword {
 		this.hashPassword = hashPassword;
 	}
 	
-	
-	public String toString() {
-		return "hash password : " + this.hashPassword; 
-	}
 }
 
 

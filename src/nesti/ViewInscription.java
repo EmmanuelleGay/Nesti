@@ -14,6 +14,11 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
+
+import toolsControl.EmailValidator;
+import toolsControl.HashPassword;
+import toolsControl.PasswordValidator;
+
 import java.awt.SystemColor;
 import java.awt.Color;
 
@@ -29,6 +34,8 @@ public class ViewInscription extends JFrame {
 	private TextField txtTown;
 	private JPasswordField txtpassword1;
 	private JPasswordField txtpassword2;
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -247,6 +254,4 @@ public class ViewInscription extends JFrame {
 
 	}
 	
-
-
 }

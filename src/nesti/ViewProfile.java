@@ -19,6 +19,11 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+
+import toolsControl.EmailValidator;
+import toolsControl.HashPassword;
+import toolsControl.PasswordValidator;
+
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -38,6 +43,10 @@ public class ViewProfile extends JFrame {
 
 	Member member;
 
+	/**
+	 * lauch the page of profil
+	 * @param member
+	 */
 	public ViewProfile(Member member) {
 		DalQuery.selectIdMember(member);
 		setMember(member);
@@ -45,6 +54,9 @@ public class ViewProfile extends JFrame {
 		displayMemberInformation();
 	}
 
+	/**
+	 * Used to display the user's information into the form
+	 */
 	private void displayMemberInformation() {
 		txtLastName.setText(member.getLastName());
 		txtFirstName.setText(member.getFirstName());
@@ -54,7 +66,10 @@ public class ViewProfile extends JFrame {
 		txtPassword1.setText(member.getPassword());
 		txtPassword2.setText(member.getPassword());
 	}
-
+	
+/**
+ * used to update info into screen after the modification by the user
+ */
 	private void updateUser() {
 		member.setLastName(txtLastName.getText());
 		member.setFirstName(txtFirstName.getText());

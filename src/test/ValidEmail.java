@@ -1,7 +1,7 @@
 package test;
 
 import junit.framework.TestCase;
-import nesti.EmailValidator;
+import toolsControl.EmailValidator;
 
 public class ValidEmail extends TestCase {
 
