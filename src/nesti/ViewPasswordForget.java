@@ -2,6 +2,8 @@ package nesti;
 
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +19,9 @@ public class ViewPasswordForget {
 		initializeViewPasswordForget();
 	}
 	
+	/**
+	 * Used to generate a new password if user forget it
+	 */
 	private void initializeViewPasswordForget() {
 		frame = new JFrame();
 		frame.setVisible(true);
@@ -38,6 +43,17 @@ public class ViewPasswordForget {
 
 		Buttons btnSubmit = new Buttons("Valider",703, 450, 108, 35);
 		containerForm.add(btnSubmit);
+		
+		Buttons btnConnexion = new Buttons("Connexion",998, 96, 108, 42);
+		btnConnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				ViewLogin viewLogin = new ViewLogin();
+
+			}
+		});
+		
+		containerForm.add(btnConnexion);
 		
 		JPanel ContaineurLogo = new JPanel();
 		ContaineurLogo.setBackground(SystemColor.window);

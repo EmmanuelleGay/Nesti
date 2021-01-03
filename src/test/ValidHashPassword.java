@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import junit.framework.TestCase;
-import nesti.HashPassword;
+import toolsControl.HashPassword;
 
 public class ValidHashPassword extends TestCase {
 	

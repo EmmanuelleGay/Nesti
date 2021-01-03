@@ -4,13 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import toolsControl.HashPassword;
+
 public class DalQuery extends MyConnexion {
 
 //	private boolean memberEmailIsOk;
 	static boolean flag;
 
-
-	
 	/**
 	 * insert member into database
 	 * 
@@ -43,6 +43,15 @@ public class DalQuery extends MyConnexion {
 		return flag;
 	}
 
+	/**
+	 * Fonction to check email and password of user
+	 * 
+	 * @param email
+	 * @param pseudo
+	 * @return resultNext
+	 * @throws SQLException
+	 */
+
 	public static boolean loginMember(String email, String pseudo) throws SQLException {
 		ResultSet resultInfo = null;
 		try {
@@ -53,14 +62,17 @@ public class DalQuery extends MyConnexion {
 			declaration.setString(2, pseudo);
 
 			resultInfo = declaration.executeQuery();
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Erreur de récupération du login de l'utilisateur" + e.getMessage());
 		}
 		return resultInfo.next();
 	}
 
-	
+	/**
+	 * Fonction to recover the id of the user
+	 * 
+	 * @param member
+	 */
 	public static void selectIdMember(Member member) {
 
 		try {
@@ -88,6 +100,13 @@ public class DalQuery extends MyConnexion {
 		}
 	}
 
+	/**
+	 * Fonction to check if email already exist in db
+	 * 
+	 * @param email
+	 * @return resultInfo
+	 * @throws SQLException
+	 */
 	public static boolean isEmailAlreadyExist(String email) throws SQLException {
 		ResultSet resultInfo = null;
 		try {
@@ -107,6 +126,13 @@ public class DalQuery extends MyConnexion {
 		return resultInfo.next();
 	}
 
+	/**
+	 * Fonction to check if Alias alreaydy exist in db
+	 * 
+	 * @param alias
+	 * @return resultInfo
+	 * @throws SQLException
+	 */
 	public static boolean isAliasAlreadyExist(String alias) throws SQLException {
 		ResultSet resultInfo = null;
 		try {
@@ -126,24 +152,13 @@ public class DalQuery extends MyConnexion {
 		return resultInfo.next();
 	}
 
-	/*
-	 * public void selectLoginMember(String email, String password) {
+	/**
+	 * Fonction which update the user's information into db
 	 * 
-	 * try { openConnection(); String query
-	 * ="SELECT * from `member` where email = ? and password = ?"; PreparedStatement
-	 * declaration = accessDataBase.prepareStatement(query);
-	 * declaration.setString(1, email); declaration.setString(2, password);
-	 * 
-	 * ResultSet resultInfo = declaration.executeQuery();
-	 * setMemberEmailIsOk(resultInfo.next());
-	 * 
-	 * System.out.println(resultInfo);
-	 * 
-	 * } catch (Exception e) {
-	 * System.err.println("Erreur de récupération des informations du membre " +
-	 * e.getMessage()); } }
+	 * @param member
+	 * @param hashPassword
+	 * @return boolean
 	 */
-
 	public static boolean updateMember(Member member, HashPassword hashPassword) {
 		boolean success = false;
 		try {
@@ -175,18 +190,4 @@ public class DalQuery extends MyConnexion {
 		return success;
 
 	}
-/*
-	/**
-	 * @return the memberEmailIsOk
-	 
-	public boolean getIsMemberEmailIsOk() {
-		return memberEmailIsOk;
-	}
-
-	/**
-	 * @param memberEmailIsOk the memberEmailIsOk to set
-	 
-	public void setMemberEmailIsOk(boolean memberEmailIsOk) {
-		this.memberEmailIsOk = memberEmailIsOk;
-	} */
 }

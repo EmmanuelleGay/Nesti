@@ -7,7 +7,14 @@ import javax.swing.JButton;
 
 public class Buttons extends JButton{
 
-
+/**
+ * used to create a new buttons in the application
+ * @param name
+ * @param x
+ * @param y
+ * @param L
+ * @param l
+ */
 	
 	public Buttons(String name, int x, int y, int L, int l) {
 		this.setText(name);

@@ -13,6 +13,7 @@ public class Label extends JLabel {
 
 	/**
 	 * Constructor for logo, background and classic Label
+	 * 
 	 * @param name
 	 * @param y
 	 */
@@ -30,7 +31,6 @@ public class Label extends JLabel {
 			this.setIcon(new ImageIcon(background));
 			this.setBounds(0, 0, 1184, 1061);
 		}
-		
 
 		else {
 			this.setBounds(289, y, 550, 23);
@@ -39,12 +39,13 @@ public class Label extends JLabel {
 			this.setText(name);
 		}
 	}
-	
+
 	/**
 	 * Constructor for header
+	 * 
 	 * @param name
 	 */
-	public Label (String name) {
+	public Label(String name) {
 		this.setBounds(350, 96, 500, 41);
 		this.setFont(new Font("Verdana", Font.PLAIN, 35));
 		this.setHorizontalAlignment(SwingConstants.CENTER);

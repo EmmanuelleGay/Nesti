@@ -12,23 +12,16 @@ public class MyConnexion {
 	static Connection accessDataBase = null;
 
 	/**
-	 * Testons la connexion
-	 */
-
-	/**
 	 * open connexion to database Nesti
 	 * 
 	 * @throws SQLException
 	 */
 	public static void openConnection() {
-		/* Parametres de connexion */
 		String url = "jdbc:mysql://127.0.0.1/nesti ?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
-		// nesti = nom de ma bdd le reste est pour le pb de fuseau horaire
 		String utilisateur = "root";
 		String motDePasse = "";
 		try {
 			System.out.println("try to connect");
-			// on ajoute nos paramètres
 			accessDataBase = DriverManager.getConnection(url, utilisateur, motDePasse);
 		} catch (SQLException ex) {
 			Logger.getLogger(MyConnexion.class.getName()).log(Level.SEVERE, null, ex);

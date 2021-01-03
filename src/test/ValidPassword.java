@@ -1,7 +1,7 @@
 package test;
 
 import junit.framework.TestCase;
-import nesti.PasswordValidator;
+import toolsControl.PasswordValidator;
 
 public class ValidPassword extends TestCase {
 
