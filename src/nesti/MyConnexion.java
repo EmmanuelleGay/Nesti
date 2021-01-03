@@ -21,7 +21,6 @@ public class MyConnexion {
 		String utilisateur = "root";
 		String motDePasse = "";
 		try {
-			System.out.println("try to connect");
 			accessDataBase = DriverManager.getConnection(url, utilisateur, motDePasse);
 		} catch (SQLException ex) {
 			Logger.getLogger(MyConnexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -38,7 +37,7 @@ public class MyConnexion {
 				accessDataBase.close();
 				System.out.println("Close connection");
 			} catch (SQLException e) {
-				System.err.println("Erreur fermreture: " + e.getMessage());
+				System.err.println("Error closing: " + e.getMessage());
 			}
 		}
 
