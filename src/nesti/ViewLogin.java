@@ -3,14 +3,11 @@ package nesti;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.SystemColor;
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 
 import toolsControl.HashPassword;
 
@@ -25,7 +22,9 @@ public class ViewLogin extends JFrame {
 	protected JFrame frame;
 	private JLabel IdLog;
 	private JLabel lblPasswordLog;
+	private JPasswordField txtPassword;
 	Member member;
+	
 
 	public ViewLogin() {
 		initializeLogin();
@@ -58,7 +57,8 @@ public class ViewLogin extends JFrame {
 		lblPasswordLog.setBounds(311, 395, 177, 32);
 		containerForm.add(lblPasswordLog);
 
-		TextField txtPassword = new TextField("txtPassword", 395);
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(577, 395, 234, 32);
 		containerForm.add(txtPassword);
 
 		Buttons btnForgetPassword = new Buttons("Mot de passe oubli\u00E9", 489, 660, 165, 42);
@@ -91,14 +91,12 @@ public class ViewLogin extends JFrame {
 					if (resultInfo.next()) {
 
 						email = resultInfo.getString("email");
-						boolean matched = HashPassword.validatePassword(txtPassword.getText(), resultInfo.getString(1));
+						boolean matched = HashPassword.validatePassword(String.valueOf(txtPassword.getPassword()), resultInfo.getString(1));
 
 						if (matched) {
 
 							frame.dispose();
-							Member member = new Member(email, txtPassword.getText());
-
-							System.out.println("ok");
+							Member member = new Member(email,String.valueOf(txtPassword.getPassword()));
 
 							ViewProfile profileMember = new ViewProfile(member);
 

@@ -8,7 +8,6 @@ import toolsControl.HashPassword;
 
 public class DalQuery extends MyConnexion {
 
-//	private boolean memberEmailIsOk;
 	static boolean flag;
 
 	/**
@@ -32,11 +31,7 @@ public class DalQuery extends MyConnexion {
 			declaration.setString(6, hashPassword.getHashPassword());
 
 			int executeUpdate = declaration.executeUpdate();
-			if (executeUpdate == 1) {
-				System.out.println("insertion membre effectué ! ");
-			} else {
-				System.out.println("insertion membre non effectue");
-			}
+			
 		} catch (Exception e) {
 			System.err.println("Erreur d'insertion du membre: " + e.getMessage());
 		}
@@ -173,9 +168,6 @@ public class DalQuery extends MyConnexion {
 			declaration.setString(4, member.getEmail());
 			declaration.setString(5, member.getTown());
 			declaration.setString(6, hashPassword.getHashPassword());
-
-			// declaration.setTimestamp(7,
-			// java.sql.Timestamp.from(java.time.Instant.now()));
 			declaration.setInt(7, member.getIdMember());
 
 			int executeUpdate = declaration.executeUpdate();
