@@ -12,4 +12,4 @@ L'utilisateur peut se connecter soit par l'email, soit par le pseudo. Le mot de 
 Une fois la connexion réussie, une nouvelle fenêtre s'ouvre et affiche les informations de l'utilisateur connecté. Il pourra, alors, modifier  ou compléter ses propres informations.
 L'application doit contenir des tests unitaires.
 
-![](Nesti/images/insciption.png)
+![](Nesti/images/inscription.png)
